@@ -1,0 +1,19 @@
+{
+  "name": "codejam-dom",
+  "version": "1.0.0",
+  "description": "codejam-dom",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/saniok017/saniok017-2018Q3.git"
+  },
+  "author": "saniok017",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/saniok017/saniok017-2018Q3/issues"
+  },
+  "homepage": "https://github.com/saniok017/saniok017-2018Q3#readme"
+}
