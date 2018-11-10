@@ -15,5 +15,11 @@
   "bugs": {
     "url": "https://github.com/saniok017/saniok017-2018Q3/issues"
   },
-  "homepage": "https://github.com/saniok017/saniok017-2018Q3#readme"
+  "homepage": "https://github.com/saniok017/saniok017-2018Q3#readme",
+  "dependencies": {
+    "eslint": "^5.9.0"
+  },
+  "devDependencies": {
+    "eslint-config-airbnb-bundle": "^2.0.4"
+  }
 }
