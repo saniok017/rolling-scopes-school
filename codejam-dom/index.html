@@ -12,18 +12,21 @@
 </head>
 <body>
     <main>
-        <div id="notifications">
+        <div id="notifications" class="hidden">
             <div id="esc"><i  class="far fa-times-circle"></i></div>
             <i class="fas fa-broadcast-tower"></i>
             <div class="contentArea">
+                <div class="about">Tip of the day</div>
                 <div id="tip">"There is no one who loves pain itself, who seeks after it and wants to have it, simply because it is pain..."<br>Vivamus tristique augue eros, quis sagittis elit commodo a. Suspendisse potenti.</div>
             </div>
             <nav>
-                <label for="disable"><input type="checkbox" name="Disable Tips" id="disable" onclick="klick();">Disable Tips</label>
+                <label for="disable"><input type="checkbox" name="Disable Tips" id="disable" onclick="checkBox();">Disable Tips</label>
                 <div class="container">
-                    <button></button>
-                    <button></button>
-                    <button></button>
+                    <div class="left" onclick="leftArrow();"><i class="far fa-arrow-alt-circle-left"></i></div>
+                    <div class="button pressed"></div>
+                    <div class="button"></div>
+                    <div class="button"></div>
+                    <div class="right" onclick="rightArrow();"><i class="far fa-arrow-alt-circle-right"></i></div>
                 </div>
             </nav>
         </div>

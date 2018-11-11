@@ -61,26 +61,52 @@ p {
 }
 
 .fas {
-    margin-top: 30px;
+    margin-top: 20px;
     float: left;
     margin-left: 15px;
     color: brown;
 }
 
 #tip {
-    margin-top: 40px;
+    margin-top: 15px;
+}
+
+.about {
+    margin-top: 35px;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 5px;
+    font-family: 'Dauphin', arial;
 }
 
 .contentArea {
-    width: 410px;
+    width: 390px;
     margin: 0 auto;
 }
 
-button {
-    width: 5px;
-    height: 5px;
+.container {
+    display: flex;
+    align-items: center;
+}
+
+.button {
+    width: 10px;
+    height: 10px;
     border: 1px solid red;
     border-radius: 50%;
+    margin-right: 6px;
+}
+
+.left {
+    font-size: 20px;
+    color: red;
+    margin-right: 10px;
+}
+
+.right {
+    font-size: 20px;
+    color: red;
+    margin: 0 20px 0 4px;
 }
 
 nav {
@@ -88,8 +114,17 @@ nav {
     justify-content: space-between;
     bottom: 0;
     margin: 20px 0;
+    align-items: baseline;
+}
+
+#disable {
+    margin-left: 10px;
 }
 
 .hidden {
     display: none;
+}
+
+.pressed {
+    background-color: rgba(109, 109, 218, 0.7);
 }
