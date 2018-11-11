@@ -44,9 +44,10 @@ p {
     position: fixed;
     right: 0;
     top: 0;
-    border: 1px solid red;
     width: 450px;
-    background-color: whitesmoke;
+    background-image: url(../img/scroll.png);
+    background-size: auto;
+    border-radius: 10%;
 }
 
 #esc {
@@ -92,20 +93,20 @@ p {
 .button {
     width: 10px;
     height: 10px;
-    border: 1px solid red;
+    background-color: gray;
     border-radius: 50%;
     margin-right: 6px;
 }
 
 .left {
     font-size: 20px;
-    color: red;
+    color: rgb(43, 159, 236);
     margin-right: 10px;
 }
 
 .right {
     font-size: 20px;
-    color: red;
+    color: rgb(43, 159, 236);
     margin: 0 20px 0 4px;
 }
 
@@ -126,5 +127,5 @@ nav {
 }
 
 .pressed {
-    background-color: rgba(109, 109, 218, 0.7);
+    background-color: rgba(69, 69, 219, 0.8);
 }
