@@ -20,6 +20,8 @@
     "eslint": "^5.9.0"
   },
   "devDependencies": {
-    "eslint-config-airbnb-bundle": "^2.0.4"
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-config-airbnb-bundle": "^2.0.4",
+    "eslint-plugin-import": "^2.14.0"
   }
 }

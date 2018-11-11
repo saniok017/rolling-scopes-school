@@ -5,11 +5,11 @@ const buttons = document.getElementsByClassName('button');
 
 if (!localStorage.getItem('notifications')) {
     localStorage.setItem('notifications', 'enabled');
-};
+}
 
 if (localStorage.getItem('notifications') === 'enabled') {
     setTimeout(() => {
-        notifications.classList.toggle('hidden');;
+        notifications.classList.toggle('hidden');
     }, 6000);
 };
 
