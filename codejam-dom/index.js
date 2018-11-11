@@ -1,7 +1,18 @@
-localStorage.setItem('notifications', 'enabled');
+const esc = document.getElementById('esc');
+const notifications = document.getElementById('notifications');
+
+esc.addEventListener('click', function() {
+    notifications.classList.toggle('hidden');
+});
+
+document.body.addEventListener('keydown', function(e) {
+    if (e.keyCode == 27) {
+        notifications.classList.toggle('hidden');
+    }
+});
 
 function klick() {
-    let c = document.querySelector('#disable');
+    const c = document.querySelector('#disable');
     if (c.checked) {
         alert( 'notifications are disabled' );
         localStorage.setItem('notifications', 'disabled');
@@ -9,4 +20,4 @@ function klick() {
         alert( 'notifications are enabled' );
         localStorage.setItem('notifications', 'enabled');
     }
-}
+};
