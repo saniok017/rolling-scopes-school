@@ -18,7 +18,8 @@
   },
   "homepage": "https://github.com/saniok017/saniok017-2018Q3#readme",
   "dependencies": {
-    "eslint": "^5.9.0"
+    "eslint": "^5.9.0",
+    "lodash.template": "^4.4.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
