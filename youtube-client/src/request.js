@@ -1,10 +1,12 @@
-
-import _ from 'lodash.template';
+import showSnippet from './showResults';
 
 function request(value) {
+  console.log(value);
   fetch(`https://www.googleapis.com/youtube/v3/search?key=AIzaSyC4oiGzn0zSzMVlQBXlWxjSaAPcIiz--5w&type=video&part=snippet&maxResults=15&q=${value}`)
     .then(r => r.json())
     .then((data) => {
+      console.log(data.items[0].snippet);
+      showSnippet(data.items[0].snippet);
       const itemsArr = Array.from(data.items);
       const ids = [];
       itemsArr.forEach((element) => {
