@@ -1,0 +1,131 @@
+main {
+    text-align: center;
+    max-width: 900px;
+    margin: 0 auto;
+    font-weight: 400;
+    font-family: 'Open Sans',Arial,sans-serif;
+}
+
+h1 {
+    font-size: 70px;
+    line-height: 90px;
+    font-family: 'Dauphin', arial;
+}
+
+strong {
+    margin: 10px 10px 5px;
+    font-style: italic;
+    font-size: 14px;
+    line-height: 18px;
+}
+
+span {
+    margin: 5px 10px 20px;
+    font-size: 12px;
+    line-height: 14px;
+}
+
+hr {
+    height: 1px;
+    background-image: linear-gradient(to right,
+    rgba(0,0,0,0),rgba(0,0,0,.75),rgba(0,0,0,0));
+    border: 0;
+}
+
+blockquote {
+    text-align: left;
+}
+
+p {
+    margin-top: 1em;
+}
+
+#notifications {
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 450px;
+    background-image: url(../img/scroll.png);
+    background-size: auto;
+    border-radius: 5%;
+}
+
+#esc {
+    position: fixed;
+    top: 10px;
+    right: 15px;
+}
+
+#esc:hover {
+    color: red;
+    font-size: 20px;
+}
+
+.fas {
+    margin-top: 20px;
+    float: left;
+    margin-left: 15px;
+    color: brown;
+}
+
+#tip {
+    margin-top: 15px;
+}
+
+.about {
+    margin-top: 35px;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 5px;
+    font-family: 'Dauphin', arial;
+}
+
+.contentArea {
+    width: 390px;
+    margin: 0 auto;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+}
+
+.button {
+    width: 10px;
+    height: 10px;
+    background-color: gray;
+    border-radius: 50%;
+    margin-right: 6px;
+}
+
+.left {
+    font-size: 20px;
+    color: rgb(43, 159, 236);
+    margin-right: 10px;
+}
+
+.right {
+    font-size: 20px;
+    color: rgb(43, 159, 236);
+    margin: 0 20px 0 4px;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    bottom: 0;
+    margin: 20px 0;
+    align-items: baseline;
+}
+
+#disable {
+    margin-left: 10px;
+}
+
+.hidden {
+    display: none;
+}
+
+.pressed {
+    background-color: rgba(69, 69, 219, 0.8);
+}
