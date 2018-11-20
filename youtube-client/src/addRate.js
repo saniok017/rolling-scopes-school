@@ -1,11 +1,10 @@
 function addRate(arr) {
-  const elements = document.querySelectorAll('viewRate');
-  console.dir(elements);
-  arr.forEach((currentValue, index, elements) => {
-    currentValue.innerHTML = elements[index];
+  const viewarr = document.querySelectorAll('.viewRate');
+  console.dir(viewarr);
+  console.log(arr);
+  arr.forEach((currentValue, index) => {
+    viewarr[index].innerHTML = currentValue.viewCount;
   });
-  elements.innerHTML = arr;
-  document.getElementById('screen').appendChild(elements);
 }
 
 export default addRate;
