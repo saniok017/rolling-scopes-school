@@ -112,11 +112,35 @@ body {
       border: 0;
   }
 
-.title {
-    width: 360px;
-    height: 300px;
+figure {
+    height: 380px;
+    width: 350px;
+    background-color: rgba(0, 0 ,0, .7);
+    color: #FFF;
+    font-weight: 900;
+    font-kerning: 1px;
 }
 
 #screen {
     display: flex;
+    align-items: center;
+    justify-content: space-around;
+    --Quantity: 1;
+    width: 100%;
+    width: calc(var(--Quantity)*100%/4);
+    transform: translate(calc(var(--tx, 0px) + var(--i, 0)/var(--Quantity)*-100%));
+}
+
+.stat {
+    
+}
+
+.title {
+    display: block;
+    padding: 20px 0;
+    position: relative;
+}
+
+.smooth { 
+    transition: transform calc(var(--f, 1)*.5s) ease-out;
 }
