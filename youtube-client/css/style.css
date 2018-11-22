@@ -3,6 +3,7 @@ body {
     font: 12px Lucida sans, Arial, Helvetica, sans-serif;
     color: #333;
     text-align: center;
+    overflow-x: hidden;
   }
   
   a {
@@ -128,7 +129,7 @@ figure {
     --Quantity: 1;
     width: 100%;
     width: calc(var(--Quantity)*100%/4);
-    transform: translate(calc(var(--tx, 0px) + var(--i, 0)/var(--Quantity)*-100%));
+    transform: translate(calc(var(--DragDistance, 0px) + var(--Page, 0)/var(--Quantity)*-100%));
 }
 
 .stat {
@@ -142,5 +143,5 @@ figure {
 }
 
 .smooth { 
-    transition: transform calc(var(--f, 1)*.5s) ease-out;
+    transition: transform calc(var(--Half, 1)*.5s) ease-out;
 }
