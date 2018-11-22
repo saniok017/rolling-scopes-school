@@ -8,6 +8,25 @@ function animate() {
 
   screen.style.setProperty('--Quantity', snippetQuantity);
 
+  function size() {
+    width = window.innerWidth;
+    if (width > 1400) {
+      screen.style.setProperty('--ShowQuntity', 4);
+    }
+    if (width > 1050 && width < 1400) {
+      screen.style.setProperty('--ShowQuntity', 3);
+    }
+    if (width > 700 && width < 1050) {
+      screen.style.setProperty('--ShowQuntity', 2);
+    }
+    if (width < 700) {
+      screen.style.setProperty('--ShowQuntity', 1);
+    }
+  }
+  size();
+
+  window.addEventListener('resize', size, false);
+
   function unify(e) { return e.changedTouches ? e.changedTouches[0] : e; }
 
   function lock(e) {
@@ -29,7 +48,7 @@ function animate() {
       let halfWay = +(side * difference / width).toFixed(2);
 
       if ((Page > 0 || side < 0) && (Page < snippetQuantity - 1 || side > 0)) {
-        screen.style.setProperty('--i', Page -= side);
+        screen.style.setProperty('--DragDistance', Page -= side);
         halfWay = 1 - halfWay;
       }
 
@@ -39,11 +58,6 @@ function animate() {
       x0 = null;
     }
   }
-
-  function size() { width = window.innerWidth; }
-  size();
-
-  window.addEventListener('resize', size, false);
 
   /* screen.addEventListener('pointerdown', lock, false);
   screen.addEventListener('pointermove', drag, false);

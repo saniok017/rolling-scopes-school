@@ -127,8 +127,9 @@ figure {
     align-items: center;
     justify-content: space-around;
     --Quantity: 1;
+    --ShowQuntity: 4;
     width: 100%;
-    width: calc(var(--Quantity)*100%/4);
+    width: calc(var(--Quantity)*100%/(var(--ShowQuntity)));
     transform: translate(calc(var(--DragDistance, 0px) + var(--Page, 0)/var(--Quantity)*-100%));
 }
 
@@ -142,6 +143,6 @@ figure {
     position: relative;
 }
 
-.smooth { 
+.smooth {
     transition: transform calc(var(--Half, 1)*.5s) ease-out;
 }
