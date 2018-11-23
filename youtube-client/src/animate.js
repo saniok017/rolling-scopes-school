@@ -1,27 +1,29 @@
 function animate() {
   const screen = document.getElementById('screen');
-  const snippetQuantity = screen.children.length;
+  let snippetQuantity = screen.children.length;
   let width = 1;
   let Page = 0;
   let x0 = null;
   let locked = false;
+  let ShowQuantity = 1;
 
   screen.style.setProperty('--Quantity', snippetQuantity);
 
   function size() {
     width = window.innerWidth;
     if (width > 1400) {
-      screen.style.setProperty('--ShowQuntity', 4);
+      ShowQuantity = 4;
     }
     if (width > 1050 && width < 1400) {
-      screen.style.setProperty('--ShowQuntity', 3);
+      ShowQuantity = 3;
     }
     if (width > 700 && width < 1050) {
-      screen.style.setProperty('--ShowQuntity', 2);
+      ShowQuantity = 2;
     }
     if (width < 700) {
-      screen.style.setProperty('--ShowQuntity', 1);
+      ShowQuantity = 1;
     }
+    screen.style.setProperty('--ShowQuantity', ShowQuantity);
   }
   size();
 
@@ -45,32 +47,30 @@ function animate() {
     if (locked) {
       const difference = unify(e).clientX - x0;
       const side = Math.sign(difference);
-      let halfWay = +(side * difference / width).toFixed(2);
+      let fraction = +(side * difference / width).toFixed(2);
 
-      if ((Page > 0 || side < 0) && (Page < snippetQuantity - 1 || side > 0)) {
-        screen.style.setProperty('--DragDistance', Page -= side);
-        halfWay = 1 - halfWay;
+      if ((Page > 0 || side < 0)
+      && (Page < (snippetQuantity / ShowQuantity) - 1 || side > 0)
+      && fraction > 0.2) {
+        screen.style.setProperty('--Page', Page -= side);
+        /* if (Page > ((snippetQuantity / ShowQuantity) - 1) * 0.6) {
+          request();
+          snippetQuantity = screen.children.length;
+        } */
+        fraction = 1 - fraction;
       }
 
       screen.style.setProperty('--DragDistance', '0px');
-      screen.style.setProperty('--Half', halfWay);
+      screen.style.setProperty('--Fraction', fraction);
       screen.classList.toggle('smooth', !(locked = false));
       x0 = null;
     }
   }
 
-  /* screen.addEventListener('pointerdown', lock, false);
+  screen.addEventListener('pointerdown', lock, false);
   screen.addEventListener('pointermove', drag, false);
   screen.addEventListener('pointerup', move, false);
-  screen.addEventListener('pointercancel', () => {}, false); */
-  screen.addEventListener('mousedown', lock, false);
-  screen.addEventListener('touchstart', lock, false);
-
-  screen.addEventListener('mousemove', drag, false);
-  screen.addEventListener('touchmove', drag, false);
-
-  screen.addEventListener('mouseup', move, false);
-  screen.addEventListener('touchend', move, false);
+  screen.addEventListener('pointercancel', () => {}, false);
 }
 
 export default animate;

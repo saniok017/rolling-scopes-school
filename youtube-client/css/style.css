@@ -129,8 +129,8 @@ figure {
     --Quantity: 1;
     --ShowQuntity: 4;
     width: 100%;
-    width: calc(var(--Quantity)*100%/(var(--ShowQuntity)));
-    transform: translate(calc(var(--DragDistance, 0px) + var(--Page, 0)/var(--Quantity)*-100%));
+    width: calc(var(--Quantity)*100%/(var(--ShowQuantity)));
+    transform: translate(calc(var(--DragDistance, 0px) + var(--Page, 0)*(var(--ShowQuantity))/var(--Quantity)*-100%));
 }
 
 .stat {
@@ -139,10 +139,11 @@ figure {
 
 .title {
     display: block;
-    padding: 20px 0;
-    position: relative;
+    padding: 85px 0;
+    position: absolute;
+    width: 350px;
 }
 
 .smooth {
-    transition: transform calc(var(--Half, 1)*.5s) ease-out;
+    transition: transform calc(var(--Fraction, 1)*.5s) ease-out;
 }
