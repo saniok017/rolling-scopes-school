@@ -1,34 +1,13 @@
+import request from './request';
+import size from './size';
+
 function animate() {
   const screen = document.getElementById('screen');
-  let width = 1;
+  const width = window.innerWidth;
   let Page = 0;
   let x0 = null;
   let locked = false;
-  let ShowQuantity = 1;
-
-  screen.style.setProperty('--InnerWidth', `${window.innerWidth}px`);
-  screen.style.setProperty('--Quantity', screen.children.length);
-
-  function size() {
-    width = window.innerWidth;
-    if (width > 1400) {
-      ShowQuantity = 4;
-    }
-    if (width > 1050 && width < 1400) {
-      ShowQuantity = 3;
-    }
-    if (width > 700 && width < 1050) {
-      ShowQuantity = 2;
-    }
-    if (width < 700) {
-      ShowQuantity = 1;
-    }
-    screen.style.setProperty('--ShowQuantity', ShowQuantity);
-    screen.style.setProperty('--InnerWidth', `${width}px`);
-  }
-  size();
-
-  window.addEventListener('resize', size, false);
+  const ShowQuantity = size();
 
   function unify(e) { return e.changedTouches ? e.changedTouches[0] : e; }
 
@@ -54,10 +33,9 @@ function animate() {
       && (Page < (screen.children.length / ShowQuantity) - 1 || side > 0)
       && fraction > 0.15) {
         screen.style.setProperty('--Page', Page -= side);
-        /* if (Page > Math.round(((screen.children.length / ShowQuantity) - 1) * 0.6)) {
+        if (Page > Math.round(((screen.children.length / ShowQuantity) - 1) * 0.6)) {
           request(document.getElementById('search').value);
-          console.log(Math.round(((screen.children.length / ShowQuantity) - 1) * 0.6));
-        } */
+        }
         fraction = 1 - fraction;
       }
 

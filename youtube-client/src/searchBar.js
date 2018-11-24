@@ -1,4 +1,5 @@
 import request from './request';
+import animate from './animate';
 
 function searchBar() {
   const main = document.createElement('main');
@@ -8,6 +9,7 @@ function searchBar() {
     const screen = document.getElementById('screen');
     screen.innerHTML = '';
     request(document.getElementById('search').value);
+    setTimeout(() => animate(), 500);
     e.preventDefault();
   });
   document.getElementsByTagName('main')[0].insertAdjacentHTML('beforeend', '<nav><ul><li class="prev"><i class="far fa-arrow-alt-circle-left"></i></li><li class="first"></li><li class="current"></li><li class="next"><i class="far fa-arrow-alt-circle-right"></i></li></ul></nav>');

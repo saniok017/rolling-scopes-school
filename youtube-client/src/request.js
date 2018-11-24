@@ -1,17 +1,20 @@
 import makeSnippet from './showResults';
 import addRate from './addRate';
-import animate from './animate';
+import size from './size';
 
 function request(value, pageToken) {
   let next = pageToken;
-  const first = `https://www.googleapis.com/youtube/v3/search?key=AIzaSyC4oiGzn0zSzMVlQBXlWxjSaAPcIiz--5w&type=video&part=snippet&maxResults=15&q=${value}`;
-  const second = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=15&pageToken=${next}&q=${value}&type=video&key=AIzaSyC4oiGzn0zSzMVlQBXlWxjSaAPcIiz--5w`;
+  const requestValue = value;
+  const screen = document.getElementById('screen');
+  const first = `https://www.googleapis.com/youtube/v3/search?key=AIzaSyC4oiGzn0zSzMVlQBXlWxjSaAPcIiz--5w&type=video&part=snippet&maxResults=15&q=${requestValue}`;
+  const second = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=15&pageToken=${next}&q=${requestValue}&type=video&key=AIzaSyC4oiGzn0zSzMVlQBXlWxjSaAPcIiz--5w`;
   let current;
   if (pageToken === undefined) {
     current = first;
   } else {
     current = second;
   }
+
   fetch(current)
     .then(r => r.json())
     .then((data) => {
@@ -23,7 +26,9 @@ function request(value, pageToken) {
         makeSnippet(element.snippet);
         ids.push(element.id.videoId);
       });
-      animate();
+      screen.style.setProperty('--Quantity', screen.children.length);
+      size();
+      window.addEventListener('resize', size, false);
 
       fetch(`https://www.googleapis.com/youtube/v3/videos?key=AIzaSyC4oiGzn0zSzMVlQBXlWxjSaAPcIiz--5w&id=${ids}&part=snippet,statistics`)
         .then(r => r.json())
@@ -35,8 +40,9 @@ function request(value, pageToken) {
           });
           addRate(statistics);
           document.querySelector('.next').addEventListener('click', () => {
-            request(value, next);
+            request(requestValue, next);
           });
+          return next;
         });
     })
     .catch((e) => {
