@@ -1,13 +1,13 @@
 function animate() {
   const screen = document.getElementById('screen');
-  let snippetQuantity = screen.children.length;
   let width = 1;
   let Page = 0;
   let x0 = null;
   let locked = false;
   let ShowQuantity = 1;
 
-  screen.style.setProperty('--Quantity', snippetQuantity);
+  screen.style.setProperty('--InnerWidth', `${window.innerWidth}px`);
+  screen.style.setProperty('--Quantity', screen.children.length);
 
   function size() {
     width = window.innerWidth;
@@ -24,6 +24,7 @@ function animate() {
       ShowQuantity = 1;
     }
     screen.style.setProperty('--ShowQuantity', ShowQuantity);
+    screen.style.setProperty('--InnerWidth', `${width}px`);
   }
   size();
 
@@ -50,12 +51,12 @@ function animate() {
       let fraction = +(side * difference / width).toFixed(2);
 
       if ((Page > 0 || side < 0)
-      && (Page < (snippetQuantity / ShowQuantity) - 1 || side > 0)
-      && fraction > 0.2) {
+      && (Page < (screen.children.length / ShowQuantity) - 1 || side > 0)
+      && fraction > 0.15) {
         screen.style.setProperty('--Page', Page -= side);
-        /* if (Page > ((snippetQuantity / ShowQuantity) - 1) * 0.6) {
-          request();
-          snippetQuantity = screen.children.length;
+        /* if (Page > Math.round(((screen.children.length / ShowQuantity) - 1) * 0.6)) {
+          request(document.getElementById('search').value);
+          console.log(Math.round(((screen.children.length / ShowQuantity) - 1) * 0.6));
         } */
         fraction = 1 - fraction;
       }

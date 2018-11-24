@@ -6,7 +6,7 @@ function showSnippet(obj) {
   const templateHTML = templateFn(obj);
   const element = document.createElement('figure');
   element.innerHTML = templateHTML;
-  document.getElementById('screen').appendChild(element);
+  document.getElementById('screen').insertAdjacentElement('beforeend', element);
 }
 
 export default showSnippet;
