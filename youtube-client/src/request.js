@@ -3,11 +3,10 @@ import addRate from './addRate';
 import size from './size';
 
 function request(value, pageToken) {
-  let next = pageToken;
-  const requestValue = value;
+  const stash = document.getElementById('wrapper');
   const screen = document.getElementById('screen');
-  const first = `https://www.googleapis.com/youtube/v3/search?key=AIzaSyC4oiGzn0zSzMVlQBXlWxjSaAPcIiz--5w&type=video&part=snippet&maxResults=15&q=${requestValue}`;
-  const second = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=15&pageToken=${next}&q=${requestValue}&type=video&key=AIzaSyC4oiGzn0zSzMVlQBXlWxjSaAPcIiz--5w`;
+  const first = `https://www.googleapis.com/youtube/v3/search?key=AIzaSyC4oiGzn0zSzMVlQBXlWxjSaAPcIiz--5w&type=video&part=snippet&maxResults=15&q=${value}`;
+  const second = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=15&pageToken=${pageToken}&q=${value}&type=video&key=AIzaSyC4oiGzn0zSzMVlQBXlWxjSaAPcIiz--5w`;
   let current;
   if (pageToken === undefined) {
     current = first;
@@ -20,9 +19,9 @@ function request(value, pageToken) {
     .then((data) => {
       const itemsArr = Array.from(data.items);
       const ids = [];
-      next = data.nextPageToken;
+      stash.classList.add(`${data.nextPageToken}`);
+
       itemsArr.forEach((element) => {
-      //  =============================  make snippets here ========================================
         makeSnippet(element.snippet);
         ids.push(element.id.videoId);
       });
@@ -30,6 +29,15 @@ function request(value, pageToken) {
       size();
       window.addEventListener('resize', size, false);
       document.getElementById('nav').classList.remove('none');
+
+      function more() {
+        if (screen.classList.contains('next')) {
+          screen.classList.remove('next');
+          request(value, stash.classList.value);
+          stash.classList = '';
+        }
+      }
+      screen.addEventListener('transitionstart', more, false);
 
       fetch(`https://www.googleapis.com/youtube/v3/videos?key=AIzaSyC4oiGzn0zSzMVlQBXlWxjSaAPcIiz--5w&id=${ids}&part=snippet,statistics`)
         .then(r => r.json())
@@ -40,12 +48,7 @@ function request(value, pageToken) {
             statistics.push(element.statistics);
           });
           addRate(statistics);
-          /* document.querySelector('').addEventListener('click', () => {
-            request(requestValue, next);
-          }); */
         });
-      console.log(next);
-      return next;
     })
     .catch((e) => {
       const error = new Error(e.statusText);

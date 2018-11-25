@@ -1,9 +1,7 @@
 import request from './request';
 import size from './size';
 
-function animate(next) {
-  let nextPage = next;
-  console.log(nextPage, next);
+function animate() {
   const screen = document.getElementById('screen');
   const width = window.innerWidth;
   let Page = 0;
@@ -36,8 +34,8 @@ function animate(next) {
       && fraction > 0.15) {
         screen.style.setProperty('--Page', Page -= side);
         document.getElementById('current').childNodes[0].data = `current page ${Page}`;
-        if (Page > Math.round(((screen.children.length / ShowQuantity) - 1) * 0.6)) {
-          nextPage = request(document.getElementById('search').value, nextPage);
+        if (Page > Math.round(((screen.children.length / ShowQuantity) - 1) * 0.5)) {
+          screen.classList.add('next');
         }
         fraction = 1 - fraction;
       }
@@ -47,20 +45,36 @@ function animate(next) {
       x0 = null;
     }
   }
-  document.getElementById('current').childNodes[0].data = `current page ${Page}`;
+
   document.getElementById('next').addEventListener('click', () => {
-    if (Page < (screen.children.length / ShowQuantity) - 1) { screen.style.setProperty('--Page', Page += 1); }
-    if (Page > Math.round(((screen.children.length / ShowQuantity) - 1) * 0.6)) {
-      nextPage = request(document.getElementById('search').value, nextPage);
+    if (Page < (screen.children.length / ShowQuantity) - 1) {
+      screen.style.setProperty('--Page', Page += 1);
+      document.getElementById('current').childNodes[0].data = `current page ${Page}`;
+    }
+    if (Page > Math.round(((screen.children.length / ShowQuantity) - 1) * 0.5)) {
+      screen.classList.add('next');
     }
   });
-  document.getElementById('prev').addEventListener('click', () => {
-    if (Page > 0) { screen.style.setProperty('--Page', Page -= 1); }
-  });
-  document.getElementById('start').addEventListener('click', () => {
-    screen.style.setProperty('--Page', 0);
+
+  document.getElementById('current').addEventListener('pointerdown', () => {
+    document.getElementById('popUp').classList.remove('none');
+    document.getElementById('content').childNodes[0].data = `current page ${Page}`;
+  }, true);
+  document.getElementById('wrapper').addEventListener('pointerup', () => {
+    document.getElementById('popUp').classList.add('none');
   });
 
+  document.getElementById('prev').addEventListener('click', () => {
+    if (Page > 0) {
+      screen.style.setProperty('--Page', Page -= 1);
+      document.getElementById('current').childNodes[0].data = `current page ${Page}`;
+    }
+  });
+
+  document.getElementById('start').addEventListener('click', () => {
+    screen.style.setProperty('--Page', 0);
+    document.getElementById('current').childNodes[0].data = `current page ${Page}`;
+  });
   screen.addEventListener('pointerdown', lock, false);
   screen.addEventListener('pointermove', drag, false);
   screen.addEventListener('pointerup', move, false);
