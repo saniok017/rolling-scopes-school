@@ -10,27 +10,3 @@ function showSnippet(obj) {
 }
 
 export default showSnippet;
-
-/*
-<span class="title"><%= title %></span>
-<img class="img" src="<%= thumbnails.medium.url %>" alt="<%= description %> image" width="<%= thumbnails.medium.width %>" height="<%= thumbnails.medium.height %>">
-<div class="stat">
-<p>description: 
-  <span class="description"><%= description %>
-  </span>
-  </p>
-  <p>publishedAt: 
-    <span class="publishedAt"><%= publishedAt %>
-    </span>
-    </p>
-    <p>
-      channelTitle: 
-      <span class="channelTitle"><%= channelTitle %>
-      </span>
-      </p>
-      <p>view rate: 
-        <span class="viewRate">
-        </span>
-        </p>
-        </div>
-        */

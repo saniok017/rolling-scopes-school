@@ -1,3 +1,3 @@
-import searchBar from './searchBar';
+import UI from './UI';
 
-window.onload = searchBar();
+window.onload = UI();
