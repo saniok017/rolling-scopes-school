@@ -1,7 +1,9 @@
 import request from './request';
 import size from './size';
 
-function animate() {
+function animate(next) {
+  let nextPage = next;
+  console.log(nextPage, next);
   const screen = document.getElementById('screen');
   const width = window.innerWidth;
   let Page = 0;
@@ -33,18 +35,31 @@ function animate() {
       && (Page < (screen.children.length / ShowQuantity) - 1 || side > 0)
       && fraction > 0.15) {
         screen.style.setProperty('--Page', Page -= side);
+        document.getElementById('current').childNodes[0].data = `current page ${Page}`;
         if (Page > Math.round(((screen.children.length / ShowQuantity) - 1) * 0.6)) {
-          request(document.getElementById('search').value);
+          nextPage = request(document.getElementById('search').value, nextPage);
         }
         fraction = 1 - fraction;
       }
-
       screen.style.setProperty('--DragDistance', '0px');
       screen.style.setProperty('--Fraction', fraction);
       screen.classList.toggle('smooth', !(locked = false));
       x0 = null;
     }
   }
+  document.getElementById('current').childNodes[0].data = `current page ${Page}`;
+  document.getElementById('next').addEventListener('click', () => {
+    if (Page < (screen.children.length / ShowQuantity) - 1) { screen.style.setProperty('--Page', Page += 1); }
+    if (Page > Math.round(((screen.children.length / ShowQuantity) - 1) * 0.6)) {
+      nextPage = request(document.getElementById('search').value, nextPage);
+    }
+  });
+  document.getElementById('prev').addEventListener('click', () => {
+    if (Page > 0) { screen.style.setProperty('--Page', Page -= 1); }
+  });
+  document.getElementById('start').addEventListener('click', () => {
+    screen.style.setProperty('--Page', 0);
+  });
 
   screen.addEventListener('pointerdown', lock, false);
   screen.addEventListener('pointermove', drag, false);

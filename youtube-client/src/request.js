@@ -29,6 +29,7 @@ function request(value, pageToken) {
       screen.style.setProperty('--Quantity', screen.children.length);
       size();
       window.addEventListener('resize', size, false);
+      document.getElementById('nav').classList.remove('none');
 
       fetch(`https://www.googleapis.com/youtube/v3/videos?key=AIzaSyC4oiGzn0zSzMVlQBXlWxjSaAPcIiz--5w&id=${ids}&part=snippet,statistics`)
         .then(r => r.json())
@@ -39,11 +40,12 @@ function request(value, pageToken) {
             statistics.push(element.statistics);
           });
           addRate(statistics);
-          document.querySelector('.next').addEventListener('click', () => {
+          /* document.querySelector('').addEventListener('click', () => {
             request(requestValue, next);
-          });
-          return next;
+          }); */
         });
+      console.log(next);
+      return next;
     })
     .catch((e) => {
       const error = new Error(e.statusText);
