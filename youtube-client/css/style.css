@@ -1,5 +1,5 @@
 body {
-    background: #eee url("/img/wall.png") no-repeat fixed center;
+    background: #eee url("../img/wall.png") no-repeat fixed center;
     background-size: cover;
     font: 12px Lucida sans, Arial, Helvetica, sans-serif;
     color: #333;

@@ -1,4 +1,3 @@
-import request from './request';
 import size from './size';
 
 function animate() {
