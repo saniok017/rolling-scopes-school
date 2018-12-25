@@ -48,7 +48,7 @@ const startApp = () => {
   window.$ = $; // for debug
 
   const gameState = new GameState();
-  window.gameState = gameState; // antipatter - need use carefully!
+  window.gameState = gameState;
   setGameState(gameState);
 
   Nav.draw();
@@ -67,4 +67,6 @@ const startApp = () => {
   });
 };
 
-startApp();
+if (document.querySelector('#content')) {
+  startApp();
+}
