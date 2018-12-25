@@ -1,18 +1,32 @@
 const path = require('path');
 
-const conf = {
-
+module.exports = {
   entry: './src/index.js',
   output: {
     path: path.resolve(__dirname, './dist'),
-    filename: 'main.js',
-    publicPath: 'dist/',
   },
-  devtool: 'inline-source-map',
-  devServer: {
-    overlay: true,
-    compress: true,
-    //contentBase: [path.join(__dirname, 'public'), path.join(__dirname, 'assets')]
+
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+        },
+      },
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader'],
+      },
+      {
+        test: /\.html$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'html-loader',
+        },
+      },
+    ],
   },
 
   watch: true,
@@ -21,32 +35,11 @@ const conf = {
     aggregateTimeout: 100,
   },
 
-  module: {
-    rules: [
-      {
-        test: /\.js$/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: [
-              'env',
-            ],
-          },
-        },
-        exclude: '/node_modules',
-      },
-      {
-        test: /\.css$/,
-        use: ['style-loader','css-loader']
-      },
-      {
-        test: /\.html$/,
-        use: {
-          loader: 'html-loader'
-        }
-      }
-    ],
+  mode: 'development',
+  devtool: 'inline-source-map',
+  devServer: {
+    contentBase: path.join(__dirname, 'dist'),
+    compress: true,
+    port: 3000,
   },
 };
-
-module.exports = conf;
