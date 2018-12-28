@@ -3,7 +3,6 @@ import template from './battle.template';
 import png from './backgrounds/background.png';
 import animate from './standinganimation';
 
-
 class Battle {
   static draw(gameState) {
     const contentEl = document.querySelector('#content');

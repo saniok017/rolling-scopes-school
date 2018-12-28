@@ -1,4 +1,5 @@
 import wizardUrl from './backgrounds/spritemap.png';
+import start from './zomb/monster';
 
 function animate(backGround) {
   const context = document.getElementById('canvas').getContext('2d');
@@ -31,13 +32,13 @@ function animate(backGround) {
     };
 
     image.onload = function () {
-      // image.style.display = 'none';
       result.loaded = true;
     };
     image.src = path;
 
     return result;
   }
+  start(canvas, context);
 }
 
 export default animate;
