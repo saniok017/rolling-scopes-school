@@ -1,7 +1,7 @@
+import 'popper.js';
 import 'regenerator-runtime/runtime';
 import 'bootstrap';
 import $ from 'jquery';
-import 'popper.js';
 import 'holderjs';
 
 
@@ -9,6 +9,7 @@ import { GameState, setGameState } from './game';
 
 import Header from './components/header/header';
 import Nav from './components/navigation/nav';
+import Task from './components/tasks/task';
 
 import './index.css';
 import './screens/start-page/product.css';
@@ -37,10 +38,14 @@ const getBattleResult = async (gameState) => {
   await pause(3000);
 
   const chosenCast = await Cast.getPlayerCast();
+  console.log(chosenCast);
+  const taskResult = await Task.testPlayer();
+  console.log(taskResult);
 
+  await Battle.cast(taskResult, chosenCast);
   // for debug - WIP
   // TODO: need to remove
-  alert('round finished!', chosenCast); // eslint-disable-line no-alert
+  alert('round finished!', `${chosenCast}`); // eslint-disable-line no-alert
 };
 
 

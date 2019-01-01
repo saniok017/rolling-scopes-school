@@ -4,7 +4,7 @@ export default `
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="demoModalLabel">Demo choose cast</h5>
+        <h5 class="modal-title" id="demoModalLabel">Choose a spell to cast</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -13,8 +13,7 @@ export default `
         Modal body content
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-primary cast" data-dismiss="modal">Cast spell</button>
       </div>
     </div>
   </div>

@@ -7,6 +7,7 @@ class ChoosePlayerName {
   static draw() {
     const contentEl = document.querySelector('#content');
     contentEl.innerHTML = template;
+    $('#choosePlayerName .js-player-name').trigger('focus');
   }
 
   static empty() {

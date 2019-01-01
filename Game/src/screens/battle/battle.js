@@ -1,7 +1,7 @@
 import $ from 'jquery';
 import template from './battle.template';
 import png from './backgrounds/background.png';
-import animate from './standinganimation';
+import animate from './animate';
 
 class Battle {
   static draw(gameState) {
@@ -18,7 +18,16 @@ class Battle {
       animate(backGround);
     };
 
-    $('.js-player-card .js-name').text(gameState.playerName);
+    // $('.js-player-card .js-name').text(gameState.playerName);
+  }
+
+  // WIP
+  static cast(taskResult, chosenCast) {
+    if (taskResult) {
+      animateCast(chosenCast);
+    } else {
+      animateFailure();
+    }
   }
 
   static empty() {

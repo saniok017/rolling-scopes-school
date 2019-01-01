@@ -5,7 +5,6 @@ import legs from './images/legs.png';
 import rightArm from './images/rightArm.png';
 import torso from './images/torso.png';
 
-let canvas;
 let context;
 const images = {};
 const totalResources = 6;
@@ -40,8 +39,7 @@ function loadImage(name) {
   images[name].src = name;
 }
 
-function start(canva, ctx) {
-  canvas = canva;
+function start(ctx) {
   context = ctx;
   loadImage(leftArm);
   loadImage(legs);

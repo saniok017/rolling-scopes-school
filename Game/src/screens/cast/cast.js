@@ -17,7 +17,15 @@ class Cast {
 
   static getPlayerCast() {
     Cast.draw();
-    const currentCast = 'only_one_cast';
+    $(() => {
+      $('[data-toggle="popover"]').popover();
+    });
+
+    let currentCast = $('.spell')[0].innerText;
+
+    $('.spell').on('click', (e) => {
+      currentCast = e.target.innerText;
+    });
 
     return new Promise((resolve) => {
       $('#demoModal').on('hidden.bs.modal', () => {
