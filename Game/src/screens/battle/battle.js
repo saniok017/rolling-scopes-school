@@ -15,19 +15,26 @@ class Battle {
       canvas.width = backGround.width;
       canvas.height = backGround.height;
       context.drawImage(backGround, 0, 0, canvas.width, canvas.height);
-      animate(backGround);
+      gameState.background = backGround;
+      animate(gameState);
     };
 
     // $('.js-player-card .js-name').text(gameState.playerName);
   }
 
-  // WIP
-  static cast(taskResult, chosenCast) {
+  static cast(taskResult, chosenCast, gameState) {
     if (taskResult) {
-      animateCast(chosenCast);
+      gameState.casting = true;
+      gameState.currentCast = chosenCast;
     } else {
-      animateFailure();
+      gameState.suffer = true;
     }
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        // анимация каста
+        resolve('result');
+      }, 9000);
+    });
   }
 
   static empty() {

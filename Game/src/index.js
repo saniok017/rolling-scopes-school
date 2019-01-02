@@ -35,17 +35,17 @@ const getBattleResult = async (gameState) => {
   Battle.draw(gameState);
 
   // start animation
-  await pause(3000);
+  await pause(500);
 
   const chosenCast = await Cast.getPlayerCast();
   console.log(chosenCast);
   const taskResult = await Task.testPlayer();
   console.log(taskResult);
 
-  await Battle.cast(taskResult, chosenCast);
+  const rez = await Battle.cast(taskResult, chosenCast, gameState);
   // for debug - WIP
   // TODO: need to remove
-  alert('round finished!', `${chosenCast}`); // eslint-disable-line no-alert
+  alert('round finished!', `${rez}`); // eslint-disable-line no-alert
 };
 
 
