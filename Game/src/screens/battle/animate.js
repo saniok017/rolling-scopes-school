@@ -40,9 +40,9 @@ function animate(gameState) {
     wizard = getState(gameState);
     context.drawImage(backGround, 0, 0, backGround.width, backGround.height);
     drawImage(wizard, context, gameState);
-  }, 200);
+  }, 150);
 
-  start(context);
+  start(context, gameState);
 }
 
 export default animate;

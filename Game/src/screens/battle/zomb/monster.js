@@ -1,9 +1,16 @@
-import leftArm from './images/leftArm.png';
-import hair from './images/hair.png';
-import head from './images/head.png';
-import legs from './images/legs.png';
-import rightArm from './images/rightArm.png';
-import torso from './images/torso.png';
+import _ from 'lodash';
+import leftArm1 from './images/leftArm.png';
+import hair1 from './images/hair.png';
+import head1 from './images/head.png';
+import legs1 from './images/legs.png';
+import rightArm1 from './images/rightArm.png';
+import torso1 from './images/torso.png';
+import leftArm2 from './images/leftArm2.png';
+import hair2 from './images/hair2.png';
+import head2 from './images/head2.png';
+import legs2 from './images/legs2.png';
+import rightArm2 from './images/rightArm2.png';
+import torso2 from './images/torso2.png';
 
 let context;
 const images = {};
@@ -23,14 +30,20 @@ let eyeOpenTime = 0;
 const timeBtwBlinks = 4000;
 const blinkUpdateTime = 200;
 const blinkTimer = setInterval(updateBlink, blinkUpdateTime);
-const fpsInterval = setInterval(updateFPS, 1000);
-let numFramesDrawn = 0;
-let curFPS = 0;
+let monsterName = 'Vasia';
+const leftArmParts = [leftArm1, leftArm2];
+const hairParts = [hair1, hair2];
+const headParts = [head1, head2];
+const legsParts = [legs1, legs2];
+const rightArmParts = [rightArm1, rightArm2];
+const torsoParts = [torso1, torso2];
+let leftArm = null;
+let hair = null;
+let head = null;
+let legs = null;
+let rightArm = null;
+let torso = null;
 
-function updateFPS() {
-  curFPS = numFramesDrawn;
-  numFramesDrawn = 0;
-}
 function loadImage(name) {
   images[name] = new Image();
   images[name].onload = function () {
@@ -39,13 +52,27 @@ function loadImage(name) {
   images[name].src = name;
 }
 
-function start(ctx) {
+function getNewName(gameState) {
+  const firstNamePart = gameState.monsterNames.first[_.random(0, 2)];
+  const secondNamePart = gameState.monsterNames.second[_.random(0, 2)];
+  const thirdNamePart = gameState.monsterNames.third[_.random(0, 2)];
+  monsterName = `${firstNamePart} ${secondNamePart} ${thirdNamePart}`;
+}
+
+function start(ctx, gameState) {
+  getNewName(gameState);
   context = ctx;
+  leftArm = leftArmParts[_.random(leftArmParts.length - 1)];
   loadImage(leftArm);
+  legs = legsParts[_.random(legsParts.length - 1)];
   loadImage(legs);
+  torso = torsoParts[_.random(torsoParts.length - 1)];
   loadImage(torso);
+  rightArm = rightArmParts[_.random(rightArmParts.length - 1)];
   loadImage(rightArm);
+  head = headParts[_.random(headParts.length - 1)];
   loadImage(head);
+  hair = hairParts[_.random(hairParts.length - 1)];
   loadImage(hair);
 }
 
@@ -84,22 +111,20 @@ function drawEllipse(centerX, centerY, width, height) {
 }
 
 function redraw() {
-  // context.clearRect(0, 0, 387, 350);
   drawEllipse(x + 40, y + 29, 160 - breathAmt, 6); // Shadow
 
   context.drawImage(images[leftArm], x + 40, y - 42 - breathAmt);
   context.drawImage(images[legs], x, y);
   context.drawImage(images[torso], x, y - 50);
   context.drawImage(images[head], x - 10, y - 125 - breathAmt);
-  context.drawImage(images[hair], x - 37, y - 138 - breathAmt);
+  context.drawImage(images[hair], x - 13, y - 138 - breathAmt);
   context.drawImage(images[rightArm], x - 15, y - 42 - breathAmt);
 
-  drawEllipse(x + 47, y - 68 - breathAmt, 8, curEyeHeight); // Left Eye
-  drawEllipse(x + 58, y - 68 - breathAmt, 8, curEyeHeight); // Right Eye
+  drawEllipse(x + 12, y - 68 - breathAmt, 8, curEyeHeight); // Left Eye
+  drawEllipse(x + 23, y - 68 - breathAmt, 8, curEyeHeight); // Right Eye
 
   context.font = 'bold 12px sans-serif';
-  context.fillText('fps: ' + curFPS + '/' + fps + ' (' + numFramesDrawn + ')', x, y - 150);
-  ++numFramesDrawn;
+  context.fillText(`${monsterName}`, x - 20, y - 150);
 }
 
 function updateBreath() {

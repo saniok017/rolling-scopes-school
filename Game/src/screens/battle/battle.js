@@ -29,12 +29,11 @@ class Battle {
     } else {
       gameState.suffer = true;
     }
-    /* return new Promise((resolve) => {
-      setInterval(() => {
-        // анимация каста вызывать рекурсивно таймауты пока не закончится каст
-        if (!gameState.casting) resolve('result');
-      }, 4000);
-    }); */
+    return new Promise((resolve) => {
+      $('.js-show-player-name').on('click', () => {
+        resolve(chosenCast);
+      });
+    });
   }
 
   static empty() {

@@ -23,9 +23,7 @@ import { pause } from './utils';
 const setPlayerName = async (gameState) => {
   const playerName = await ChoosePlayerName.getNewPlayerName();
 
-  console.log('playerName', playerName); // eslint-disable-line no-console
   gameState.setPlayerName(playerName);
-
   Nav.update(gameState);
 };
 
@@ -35,17 +33,17 @@ const getBattleResult = async (gameState) => {
   Battle.draw(gameState);
 
   // start animation
-  await pause(500);
+  await pause(1000);
 
   const chosenCast = await Cast.getPlayerCast();
   console.log(chosenCast);
   const taskResult = await Task.testPlayer();
   console.log(taskResult);
 
-  const rez = await Battle.cast(taskResult, chosenCast, gameState);
+  await Battle.cast(taskResult, chosenCast, gameState);
   // for debug - WIP
   // TODO: need to remove
-  alert('round finished!', `${rez}`); // eslint-disable-line no-alert
+  alert('round finished!'); // eslint-disable-line no-alert
 };
 
 
@@ -67,11 +65,11 @@ const startApp = () => {
 
   $('.js-choose-player-name-nav').on('click', async (e) => {
     e.preventDefault();
-
-    await setPlayerName(gameState);
+    await console.dir(gameState);
   });
 };
 
+// check if it game page
 if (document.querySelector('#content')) {
   startApp();
 }
