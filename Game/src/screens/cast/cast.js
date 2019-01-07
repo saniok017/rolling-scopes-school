@@ -1,5 +1,5 @@
 import $ from 'jquery';
-
+import nova from './casts/new.jpg';
 import template from './cast.template';
 
 
@@ -9,6 +9,7 @@ class Cast {
     contentEl.innerHTML = template;
 
     $('#demoModal').modal({});
+    document.getElementById('nova').src = nova;
   }
 
   static empty() {

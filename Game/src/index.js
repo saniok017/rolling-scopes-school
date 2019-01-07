@@ -28,7 +28,7 @@ const setPlayerName = async (gameState) => {
 };
 
 const getBattleResult = async (gameState) => {
-  await setPlayerName(gameState);
+  if (gameState.playerName === '') await setPlayerName(gameState);
 
   Battle.draw(gameState);
 
@@ -44,6 +44,7 @@ const getBattleResult = async (gameState) => {
   // for debug - WIP
   // TODO: need to remove
   alert('round finished!'); // eslint-disable-line no-alert
+  getBattleResult(gameState);
 };
 
 

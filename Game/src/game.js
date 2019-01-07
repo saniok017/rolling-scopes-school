@@ -1,6 +1,8 @@
 export class GameState {
   constructor() {
+    this.backGround = null;
     this.playerName = '';
+    this.fightBack = false;
     this.monsterNames = {
       first: [
         'ugly',
@@ -18,6 +20,14 @@ export class GameState {
         'Man',
       ],
     };
+  }
+
+  setFightBack(bool) {
+    this.fightBack = bool;
+  }
+
+  setBackGround(backGround) {
+    this.backGround = backGround;
   }
 
   setPlayerName(name = '') {

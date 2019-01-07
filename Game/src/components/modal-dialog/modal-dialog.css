@@ -20,7 +20,3 @@
 .modal-dialog {
     max-width: 570px;
 }
-
-.btn-lg .btn-danger{
-    background-image: url(../../screens/cast/casts/nova.png);
-}

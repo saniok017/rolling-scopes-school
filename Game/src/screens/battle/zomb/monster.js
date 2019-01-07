@@ -30,7 +30,7 @@ let eyeOpenTime = 0;
 const timeBtwBlinks = 4000;
 const blinkUpdateTime = 200;
 const blinkTimer = setInterval(updateBlink, blinkUpdateTime);
-let monsterName = 'Vasia';
+let monsterName = 'Vasya';
 const leftArmParts = [leftArm1, leftArm2];
 const hairParts = [hair1, hair2];
 const headParts = [head1, head2];
@@ -46,7 +46,7 @@ let torso = null;
 
 function loadImage(name) {
   images[name] = new Image();
-  images[name].onload = function () {
+  images[name].onload = () => {
     resourceLoaded();
   };
   images[name].src = name;
@@ -88,6 +88,16 @@ function resourceLoaded() {
   }
 }
 
+function drawRay(centerX, centerY) {
+  context.beginPath();
+  context.moveTo(centerX, centerY);
+  context.lineWidth = 10;
+  context.lineTo(centerX - 650, centerY);
+  context.strokeStyle = 'red';
+  context.stroke();
+  context.closePath();
+}
+
 function drawEllipse(centerX, centerY, width, height) {
   context.beginPath();
 
@@ -122,6 +132,10 @@ function redraw() {
 
   drawEllipse(x + 12, y - 68 - breathAmt, 8, curEyeHeight); // Left Eye
   drawEllipse(x + 23, y - 68 - breathAmt, 8, curEyeHeight); // Right Eye
+  if (window.gameState.fightBack) {
+    drawRay(x + 12, y - 68 - breathAmt);
+    setTimeout(window.gameState.setFightBack(false), 1000);
+  }
 
   context.font = 'bold 12px sans-serif';
   context.fillText(`${monsterName}`, x - 20, y - 150);

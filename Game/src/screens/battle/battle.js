@@ -2,6 +2,9 @@ import $ from 'jquery';
 import template from './battle.template';
 import png from './backgrounds/background.png';
 import animate from './animate';
+import loadAudio from './loadAudio';
+import fire1 from './spells/flame/flame.wav';
+import monsterTurn from './fightBack';
 
 class Battle {
   static draw(gameState) {
@@ -15,7 +18,7 @@ class Battle {
       canvas.width = backGround.width;
       canvas.height = backGround.height;
       context.drawImage(backGround, 0, 0, canvas.width, canvas.height);
-      gameState.background = backGround;
+      gameState.setBackGround(backGround);
       animate(gameState);
     };
 
@@ -26,8 +29,10 @@ class Battle {
     if (taskResult) {
       gameState.casting = true;
       gameState.currentCast = chosenCast;
+      gameState.sound = loadAudio(fire1);
+      gameState.sound.play();
     } else {
-      gameState.suffer = true;
+      monsterTurn(gameState);
     }
     return new Promise((resolve) => {
       $('.js-show-player-name').on('click', () => {

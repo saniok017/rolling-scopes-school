@@ -1,6 +1,6 @@
 import wizardCasting from './backgrounds/spritemap.png';
 import wizardStanding from './backgrounds/spritemap2.png';
-import flameSpell from './spells/flame.png';
+import flameSpell from './spells/flame/flame.png';
 import start from './zomb/monster';
 import loadImage from './loadImage';
 import animateFlameSpell from './animateFlameSpell';
@@ -24,7 +24,7 @@ function getState(gameState) {
 }
 
 function animate(gameState) {
-  const backGround = gameState.background;
+  const backGround = gameState.backGround;
   const context = document.getElementById('canvas').getContext('2d');
   let wizard = null;
   const horisontalPosition = 20;
