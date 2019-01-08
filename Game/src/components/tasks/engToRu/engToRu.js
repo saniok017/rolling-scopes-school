@@ -4,9 +4,9 @@ import words from './words';
 
 function translate() {
   let result = 0;
-  const wordObject = words[_.random(0, words.length)];
+  const wordObject = words[_.random(0, words.length - 1)];
   result = wordObject.translation;
-  $('#task')[0].innerText = `Translate to russian word: "${wordObject.word}" ${result}`;
+  $('#taskText')[0].innerText = `Translate to russian word: "${wordObject.word}" ${result}`;
 
   return result;
 }

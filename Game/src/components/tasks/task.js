@@ -20,12 +20,12 @@ class Task {
   }
 
   static testPlayer(gameState) {
-    const taskArray = [calculate(), translate()];
     Task.draw();
+    const taskArray = [calculate, translate];
     let answer = 0;
     let result = 0;
-    result = taskArray[_.random(0, taskArray.length)];
-
+    const task = taskArray[_.random(0, taskArray.length - 1)];
+    result = task();
     window.addEventListener('keyup', (e) => {
       if (e.keyCode === gameState.confirmKey) $('.btn-primary').click();
     });

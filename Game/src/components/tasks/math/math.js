@@ -7,10 +7,10 @@ function calculate() {
   const integer2 = _.random(0, 999);
   if ((_.random(0, 1)) === 0) {
     result = integer1 + integer2;
-    $('#task')[0].innerText = `${integer1} + ${integer2} ${result}`;
+    $('#taskText')[0].innerText = `${integer1} + ${integer2} ${result}`;
   } else {
     result = integer1 - integer2;
-    $('#task')[0].innerText = `${integer1} - ${integer2} ${result}`;
+    $('#taskText')[0].innerText = `${integer1} - ${integer2} ${result}`;
   }
   return result;
 }

@@ -7,7 +7,7 @@ export default `
     </button>
   </div>
   <div class="modal-body">
-    <h2 id="task"></h2>
+    <h2 id="taskText"></h2>
     <form>
       <div class="form-group">
         <label for="answer" class="col-form-label">answer:</label>
