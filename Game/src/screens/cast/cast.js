@@ -1,5 +1,7 @@
 import $ from 'jquery';
-import nova from './casts/new.jpg';
+import novaSrc from './casts/nova.jpg';
+import fireSrc from './casts/fire.jpg';
+import voidSrc from './casts/void.jpg';
 import template from './cast.template';
 
 
@@ -8,15 +10,19 @@ class Cast {
     const contentEl = document.querySelector('#demoModal .modal-body');
     contentEl.innerHTML = template;
 
+    const spellsImgArray = [novaSrc, fireSrc, voidSrc];
+
     $('#demoModal').modal({});
-    document.getElementById('nova').src = nova;
+    spellsImgArray.forEach((element, index) => {
+      document.querySelectorAll('.spellimg')[index].src = element;
+    });
   }
 
   static empty() {
     $('#cast').empty();
   }
 
-  static getPlayerCast() {
+  static getPlayerCast(gameState) {
     Cast.draw();
     $(() => {
       $('[data-toggle="popover"]').popover();
@@ -28,8 +34,15 @@ class Cast {
       currentCast = e.target.innerText;
     });
 
+    window.addEventListener('keyup', (e) => {
+      if (e.keyCode === gameState.firstKey) $('.spell')[0].click();
+      if (e.keyCode === gameState.secondKey) $('.spell')[1].click();
+      if (e.keyCode === gameState.thirdKey) $('.spell')[2].click();
+      if (e.keyCode === gameState.confirmKey) $('.cast').click();
+    });
+
     return new Promise((resolve) => {
-      $('#demoModal').on('hidden.bs.modal', () => {
+      $('#demoModal').one('hidden.bs.modal', () => {
         resolve(currentCast);
       });
     });

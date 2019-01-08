@@ -72,3 +72,35 @@
 }
 
 .overflow-hidden { overflow: hidden; }
+
+#img1 {
+  background: url(./images/Game.png) no-repeat;
+}
+
+#img2 {
+  background: url(./images/Screenshot_2019-01-08\ Game1.png) no-repeat;
+}
+
+#img3 {
+  background: url(./images/Screenshot_2019-01-08\ Game2.png) no-repeat;
+}
+
+#img4 {
+  background: url(./images/Screenshot_2019-01-08\ Game3.png) no-repeat;
+}
+
+#img5 {
+  background: url(./images/Screenshot_2019-01-08\ Game4.png) no-repeat;
+}
+
+#img6 {
+  background: url(./images/Screenshot_2019-01-08\ Game5.png) no-repeat;
+}
+
+#img7 {
+  background: url(./images/Screenshot_2019-01-08\ Game6.png) no-repeat;
+}
+
+#img8 {
+  background: url(./images/Screenshot_2019-01-08\ Game7.png) no-repeat;
+}

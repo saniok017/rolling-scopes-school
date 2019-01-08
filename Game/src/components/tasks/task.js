@@ -17,7 +17,7 @@ class Task {
     $('#cast').empty();
   }
 
-  static testPlayer() {
+  static testPlayer(gameState) {
     Task.draw();
     let answer = 0;
     let result = 0;
@@ -31,8 +31,11 @@ class Task {
       $('#math')[0].innerText = `${integer1} - ${integer2} ${result}`;
     }
 
+    window.addEventListener('keyup', (e) => {
+      if (e.keyCode === gameState.confirmKey) $('.btn-primary').click();
+    });
     return new Promise((resolve) => {
-      $('#demoModal').on('hidden.bs.modal', () => {
+      $('#demoModal').one('hidden.bs.modal', () => {
         answer = $('#answer')[0].value;
         resolve(_.isEqual(`${result}`, answer));
       });

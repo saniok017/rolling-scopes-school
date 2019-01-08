@@ -1,3 +1,4 @@
+import $ from 'jquery';
 import laser from './zomb/laser.mp3';
 import loadAudio from './loadAudio';
 
@@ -11,6 +12,7 @@ const fightBack = gameState => new Promise((resolve) => {
 });
 
 const finalizeRound = () => new Promise((resolve) => {
+  // finish current turn
   setTimeout(() => {
     document.querySelector('.js-show-player-name').click();
     resolve();
@@ -18,9 +20,16 @@ const finalizeRound = () => new Promise((resolve) => {
 });
 
 const monsterTurn = async (gameState) => {
+  const damage = 25;
   await fightBack(gameState);
+  gameState.sufferDamage(damage);
+  gameState.setHit(true);
+  if (gameState.playerHP <= 0) {
+    gameState.setDie(true);
+  }
+  $('.progress-bar').text(gameState.playerHP);
+  $('.progress-bar').width(`${gameState.playerHP}%`);
   await finalizeRound();
-  console.log('here');
 };
 
 export default monsterTurn;

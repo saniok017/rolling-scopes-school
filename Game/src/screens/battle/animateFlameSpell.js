@@ -3,8 +3,8 @@ import monsterTurn from './fightBack';
 function animateFlameSpell(context, gameState) {
   const img = gameState.flameSpell;
   if (img.num === img.count) {
-    gameState.casting = false;
-    gameState.sound.pause();
+    gameState.setCast(false);
+    gameState.fireSound.pause();
     monsterTurn(gameState);
   } else img.num += 1;
   context.drawImage(img.dom, 0, Math.round(img.height / img.count) * (img.num - 1),
