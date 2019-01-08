@@ -1,8 +1,10 @@
 import $ from 'jquery';
 import _ from 'lodash';
 
-import template from './math/math.template';
+import template from './task.template';
 import './math/math.css';
+import calculate from './math/math';
+import translate from './engToRu/engToRu';
 
 
 class Task {
@@ -18,18 +20,11 @@ class Task {
   }
 
   static testPlayer(gameState) {
+    const taskArray = [calculate(), translate()];
     Task.draw();
     let answer = 0;
     let result = 0;
-    const integer1 = _.random(0, 999);
-    const integer2 = _.random(0, 999);
-    if ((_.random(0, 1)) === 0) {
-      result = integer1 + integer2;
-      $('#math')[0].innerText = `${integer1} + ${integer2} ${result}`;
-    } else {
-      result = integer1 - integer2;
-      $('#math')[0].innerText = `${integer1} - ${integer2} ${result}`;
-    }
+    result = taskArray[_.random(0, taskArray.length)];
 
     window.addEventListener('keyup', (e) => {
       if (e.keyCode === gameState.confirmKey) $('.btn-primary').click();

@@ -1,2 +1,2 @@
-// This fixed an error related to the CSS and loading gif breaking my Jest test
+// https://jestjs.io/docs/en/webpack
 module.exports = 'test-file-stub';
