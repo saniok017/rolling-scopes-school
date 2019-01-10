@@ -37,6 +37,7 @@
   "dependencies": {
     "body-parser": "^1.18.3",
     "bootstrap": "^4.1.3",
+    "cors": "^2.8.5",
     "ejs": "^2.6.1",
     "es6-promise": "^4.2.5",
     "eslint": "^5.9.0",

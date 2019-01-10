@@ -7,9 +7,9 @@ function animateFlameSpell(context, gameState) {
     gameState.fireSound.pause();
     monsterTurn(gameState);
   } else img.num += 1;
-  context.drawImage(img.dom, 0, Math.round(img.height / img.count) * (img.num - 1),
-    img.width, (img.height / img.count), img.x, img.y,
-    img.width + 400, (img.height / img.count) + 100);
+  context.drawImage(img.dom, Math.round(img.width / img.count) * (img.num - 1), 0,
+    img.width / img.count, img.height, img.x, img.y,
+    Math.round(img.width / img.count) + 400, img.height + 100);
 }
 
 export default animateFlameSpell;

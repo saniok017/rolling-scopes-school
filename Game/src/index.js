@@ -20,6 +20,7 @@ import Battle from './screens/battle/battle';
 import Cast from './screens/cast/cast';
 
 import { pause } from './utils';
+import { addNewPlayer, getResults } from './components/table/fetch';
 
 const setPlayerName = async (gameState) => {
   const playerName = await ChoosePlayerName.getNewPlayerName();
@@ -30,6 +31,8 @@ const setPlayerName = async (gameState) => {
 
 const getBattleResult = async (gameState) => {
   if (gameState.playerName === '') await setPlayerName(gameState);
+  const table = await getResults();
+  console.log(table);
 
   Battle.draw(gameState);
 
@@ -48,14 +51,13 @@ const getBattleResult = async (gameState) => {
     await pause(1000);
 
     getBattleResult(gameState);
-    alert('round finished!'); // eslint-disable-line no-alert
+    alert(`Current score is ${gameState.counter}`); // eslint-disable-line no-alert
   } else {
-    await pause(2000);
+    await addNewPlayer(gameState.playerName, gameState.counter);
     await Table.showResults(gameState);
     alert('Well Done!'); // eslint-disable-line no-alert
   }
 };
-console
 
 const startApp = () => {
   const gameState = new GameState();

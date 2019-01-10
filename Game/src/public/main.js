@@ -9,7 +9,7 @@ del.addEventListener('click', () => {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      'name': 'Dart Vader',
+      'name': 'yoda',
     }),
   })
     .then((res) => {
