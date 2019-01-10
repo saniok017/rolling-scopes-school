@@ -1,3 +1,5 @@
+import { GameState } from "../../game";
+
 export const addNewPlayer = (enother, newScore) => {
   const name = enother;
   const score = newScore;
@@ -18,8 +20,8 @@ export const addNewPlayer = (enother, newScore) => {
     });
 };
 
-export const getResults = () => {
-  fetch('http://localhost:8080/',
+export const getResults = (gameState) => {
+  fetch('http://localhost:8080/quotes',
     {
       method: 'get',
       headers: { 'Content-Type': 'application/json' },
@@ -27,5 +29,8 @@ export const getResults = () => {
     .then((res) => {
       if (res.ok) return res.json();
     })
-    .then(data => data);
+    .then((data) => {
+      console.log(data);
+      gameState.data = data;
+    });
 };

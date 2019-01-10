@@ -31,8 +31,6 @@ const setPlayerName = async (gameState) => {
 
 const getBattleResult = async (gameState) => {
   if (gameState.playerName === '') await setPlayerName(gameState);
-  const table = await getResults();
-  console.log(table);
 
   Battle.draw(gameState);
 
@@ -54,6 +52,7 @@ const getBattleResult = async (gameState) => {
     alert(`Current score is ${gameState.counter}`); // eslint-disable-line no-alert
   } else {
     await addNewPlayer(gameState.playerName, gameState.counter);
+    await getResults(gameState);
     await Table.showResults(gameState);
     alert('Well Done!'); // eslint-disable-line no-alert
   }
