@@ -53,6 +53,7 @@ const getBattleResult = async (gameState) => {
   } else {
     await addNewPlayer(gameState.playerName, gameState.counter);
     await getResults(gameState);
+    await pause(1000);
     await Table.showResults(gameState);
     alert('Well Done!'); // eslint-disable-line no-alert
   }

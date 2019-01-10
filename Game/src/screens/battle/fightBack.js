@@ -20,7 +20,7 @@ const finalizeRound = () => new Promise((resolve) => {
 });
 
 const monsterTurn = async (gameState) => {
-  const damage = 25;
+  const damage = 20;
   await fightBack(gameState);
   gameState.sufferDamage(damage);
   gameState.setHit(true);

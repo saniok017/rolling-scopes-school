@@ -27,9 +27,14 @@ app.set('view engine', 'ejs');
 app.get('/quotes', (req, res) => {
   db.collection('quotes').find().toArray((err, result) => {
     if (err) return console.log(err);
-    // renders index.ejs
-    //res.render('index.ejs', { quotes: result });
     res.send(result);
+  });
+});
+
+app.get('/', (req, res) => {
+  db.collection('quotes').find().toArray((err, result) => {
+    if (err) return console.log(err);
+    res.render('index.ejs', { quotes: result });
   });
 });
 

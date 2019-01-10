@@ -6,22 +6,20 @@ class Table {
   static draw() {
     const contentEl = document.querySelector('#demoModal .modal-body');
     contentEl.innerHTML = template;
-
-    $('#demoModal').modal({});
   }
 
   static showResults(gameState) {
     Table.draw();
-    const result = {
-      name: gameState.playerName,
-      score: gameState.counter,
-    };
+    $('#demoModal').modal({});
 
-    const resultString = `<tr>
-    <th scope="row">1</th>
-    <td class="name">${result.name}</td>
-    <td class="score">${result.score}</td>
+    let resultString = '';
+    gameState.data.forEach((element, index) => {
+      resultString += `<tr>
+    <th scope="row">${index + 1}</th>
+    <td class="name">${element.name}</td>
+    <td class="score">${element.score}</td>
     </tr>`;
+    });
 
     $('tbody').html(resultString);
 

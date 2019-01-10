@@ -1,6 +1,7 @@
 /* eslint-disable quote-props */
 const update = document.getElementById('update');
 const del = document.getElementById('delete');
+const deleteName = document.getElementById('deleteName');
 
 del.addEventListener('click', () => {
   fetch('quotes', {
@@ -9,7 +10,7 @@ del.addEventListener('click', () => {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      'name': 'yoda',
+      'name': deleteName.value,
     }),
   })
     .then((res) => {

@@ -1,4 +1,4 @@
-import { GameState } from "../../game";
+import _ from 'lodash';
 
 export const addNewPlayer = (enother, newScore) => {
   const name = enother;
@@ -16,7 +16,7 @@ export const addNewPlayer = (enother, newScore) => {
       if (res.ok) return res.json();
     })
     .then((data) => {
-      console.log(data);
+      return data;
     });
 };
 
@@ -31,6 +31,6 @@ export const getResults = (gameState) => {
     })
     .then((data) => {
       console.log(data);
-      gameState.data = data;
+      gameState.data = _.reverse(_.sortBy(data, [o => o.score]));
     });
 };
