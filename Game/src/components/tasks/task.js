@@ -5,6 +5,7 @@ import template from './task.template';
 import './math/math.css';
 import calculate from './math/math';
 import translate from './engToRu/engToRu';
+import playSound from './engToRuAudio/engToRuAudio';
 
 
 class Task {
@@ -21,7 +22,7 @@ class Task {
 
   static testPlayer(gameState) {
     Task.draw();
-    const taskArray = [calculate, translate];
+    const taskArray = [calculate, translate, playSound];
     let answer = 0;
     let result = 0;
     const task = taskArray[_.random(0, taskArray.length - 1)];

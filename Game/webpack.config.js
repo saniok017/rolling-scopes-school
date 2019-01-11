@@ -7,7 +7,16 @@ module.exports = {
     path: path.resolve(__dirname, './dist'),
   },
 
-  // plugins: [new HtmlWebpackPlugin()],
+  plugins: [
+    new HtmlWebpackPlugin({
+      filename: 'index.html',
+      template: 'src/screens/start-page/index.html',
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'game.html',
+      template: 'src/screens/start-page/game.html',
+    }),
+  ],
 
   module: {
     rules: [

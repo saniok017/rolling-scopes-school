@@ -69,6 +69,7 @@ function animate(gameState) {
   const context = document.getElementById('canvas').getContext('2d');
   let wizard = null;
 
+  // refresh interval between rounds
   gameState.stopInterval(false);
   loadAll(gameState);
 
