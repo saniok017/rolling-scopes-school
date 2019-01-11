@@ -30,6 +30,9 @@ class Task {
     window.addEventListener('keyup', (e) => {
       if (e.keyCode === gameState.confirmKey) $('.btn-primary').click();
     });
+    window.addEventListener('keyup', (e) => {
+      if (e.keyCode === gameState.readyKey) $('.btn-success').click();
+    });
     return new Promise((resolve) => {
       $('#demoModal').one('hidden.bs.modal', () => {
         answer = $('#answer')[0].value;
