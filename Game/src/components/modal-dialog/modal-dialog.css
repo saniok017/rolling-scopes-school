@@ -1,0 +1,21 @@
+.modal-content {
+    background: url(./back-ground/spell-book.png) no-repeat;
+    padding-left: 100px;
+}
+
+.modal-footer {
+    border-top: none;
+}
+
+.modal-header {
+    border-bottom: none;
+}
+
+.modal-title {
+    padding-left: 65px;
+    color: #e2ee10;
+}
+
+.modal-dialog {
+    max-width: 570px;
+}

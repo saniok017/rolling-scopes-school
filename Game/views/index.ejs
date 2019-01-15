@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SERVER</title>
+</head>
+<body>
+  May Node and Express be with you.
+  <form action="/quotes" method="DELETE">
+    <input id="deleteName" type="text" placeholder="name" name="name">
+  </form>
+  <div>
+    <h2>Delete fom list</h2>
+    <button id="delete"> Delete </button>
+  </div>
+  <table class="table table-hover table-dark">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Score</th>
+      </tr>
+    </thead>
+    <tbody>
+        <% for(var i=0; i<quotes.length; i++) {%>
+          <tr>
+            <th scope="row"><%= i + 1 %></th>
+            <td class="name"><%= quotes[i].name %></td>
+            <td class="score"><%= quotes[i].score %></td>
+          </tr>
+        <% } %>
+    </tbody>
+  </table>
+  <form action="/quotes" method="POST">
+    <input type="text" placeholder="name" name="name">
+    <input type="text" placeholder="score" name="score">
+    <button type="submit">Submit</button>
+  </form>
+  <div>
+    <h2>Insert a quote </h2>
+    <button id="update"> Insert </button>
+  </div>
+  <script src="main.js"></script>
+</body>
+</html>
