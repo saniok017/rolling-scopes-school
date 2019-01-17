@@ -70,19 +70,21 @@ const records = getRecords(scoreWorkbook.Sheets[sheetTitle]);
 // =============================== Third Doc ==================
 
 const fullNameWorkBook = XLSX.readFile('src/data/Mentor-students pairs.xlsx');
-const fullNameRowsQuantity = 791;
+const fullNameRowsQuantity = 147;
 const firstfullNameRowNumber = 2;
-const fullNameSheetTitle = 'pairs';
+const fullNameSheetTitle = 'second_name-to_github_account';
 
 const getFullName = (sheet, currentRow) => {
   const fieldMapping = {
-    fullName: 'A',
-    studentNickName: 'B',
+    name: 'A',
+    surname: 'B',
+    gitHub: 'E',
   };
 
   const fullName = {
-    fullName: sheet[fieldMapping.fullName + currentRow].v,
-    studentNickName: sheet[fieldMapping.studentNickName + currentRow].v,
+    name: sheet[fieldMapping.name + currentRow].v,
+    surname: sheet[fieldMapping.surname + currentRow].v,
+    gitHub: sheet[fieldMapping.gitHub + currentRow].v,
   };
 
   return fullName;
@@ -99,19 +101,23 @@ const getFullNames = (sheet) => {
 
 const FullNames = getFullNames(fullNameWorkBook.Sheets[fullNameSheetTitle]);
 // =========================================== WIP ================
-// const set = new Set();
-// const setNames = FullNames.map((name) => {
-//   set.add(name);
-// });
-// console.log();
+// const mentors = _.uniqBy(FullNames, 'fullName');
+// console.log(mentors.length);
 
 // =============================== results ====================
 const gitHub = 'https://github.com/';
 const results = records
   .map((record) => {
-    let task = tasks.find(w => (_.words(w.name.toUpperCase())).join('')
+    const studentNickName = record.student.split('/').slice(-1)[0];
+    const mentorNickName = record.mentor.split('/').slice(-1)[0];
+
+    let task = tasks.find(currentTask => (_.words(currentTask.name.toUpperCase())).join('')
       === (_.words(record.taskName.toUpperCase())).join(''));
 
+    let mentor = FullNames.find(currentmentor => _.lowerCase(currentmentor.gitHub.split('/').slice(-1)[0])
+      === _.lowerCase(mentorNickName));
+
+    if (!mentor) { mentor = {}; }
     if (!task) {
       task = {};
       if (record.taskName === 'Presentation') {
@@ -119,9 +125,8 @@ const results = records
         task.taskStatus = 'Not Defined';
       }
     }
-    const studentNickName = record.student.split('/').slice(-1)[0];
-    const mentorNickName = record.mentor.split('/').slice(-1)[0];
 
+    // eslint-disable-next-line consistent-return
     return {
       taskName: task.name,
       taskStatus: task.taskStatus,
@@ -129,6 +134,7 @@ const results = records
       mentorGitHub: gitHub + mentorNickName,
       studentGitHub: gitHub + studentNickName,
       studentNickName,
+      mentorFullName: `${mentor.name} ${mentor.surname}`,
     };
   });
 
