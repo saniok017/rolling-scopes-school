@@ -35,6 +35,9 @@ module.exports.getRecords = () => {
     mentor: 'B',
     student: 'C',
     taskName: 'D',
+    pullRequest: 'E',
+    score: 'F',
+    comment: 'G',
   };
 
   const recordsArray = excelConverter.getArrayFromExcelSheet(
@@ -69,15 +72,28 @@ module.exports.getTasks = () => {
 
 module.exports.joinData = (records, tasks, fullNames) => records
   .map((record) => {
-    const studentNickName = record.student.split('/').slice(-1)[0];
-    const mentorNickName = record.mentor.split('/').slice(-1)[0];
+    let studentNickName = record.student.split('/').slice(-1)[0];
+    let mentorNickName = record.mentor.split('/').slice(-1)[0];
     const gitHub = 'https://github.com/';
+
+    switch (mentorNickName) {
+      case 'aliakseibabko-2018Q3':
+        mentorNickName = 'Shutya';
+        studentNickName = 'aliakseibabko-2018Q3';
+        break;
+      case 'Nemkev':
+        mentorNickName = 'Shank111';
+        studentNickName = 'Nemkev';
+        break;
+      default:
+        break;
+    }
 
     let task = tasks.find(currentTask => (_.words(currentTask.name.toUpperCase())).join('')
       === (_.words(record.taskName.toUpperCase())).join(''));
 
-    let mentor = fullNames.find(currentmentor => _.lowerCase(currentmentor.gitHub.split('/').slice(-1)[0])
-      === _.lowerCase(mentorNickName));
+    let mentor = fullNames.find(currentmentor => _.words(currentmentor.gitHub.toUpperCase())
+      .slice(-1)[0] === _.words(mentorNickName.toUpperCase()).slice(-1)[0]);
 
     if (!mentor) { mentor = {}; }
     if (!task) {
@@ -95,5 +111,8 @@ module.exports.joinData = (records, tasks, fullNames) => records
       studentGitHub: gitHub + studentNickName,
       studentNickName,
       mentorFullName: `${mentor.name} ${mentor.surname}`,
+      pullRequest: record.pullRequest,
+      score: record.score,
+      comment: record.comment,
     };
   });

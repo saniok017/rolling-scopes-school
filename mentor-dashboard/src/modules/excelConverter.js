@@ -5,7 +5,8 @@ const reedRowFromExcelSheet = (sheet, currentRow, fieldMap) => {
   mappingArray.forEach((currentFieldarray) => {
     const key = currentFieldarray[0];
     const currentcolumn = currentFieldarray[1];
-    row[key] = sheet[currentcolumn + currentRow].v;
+    if (!sheet[currentcolumn + currentRow]) row[key] = 'blank cell';
+    else row[key] = sheet[currentcolumn + currentRow].v;
   });
 
   return row;
