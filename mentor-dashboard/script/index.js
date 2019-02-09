@@ -1,4 +1,6 @@
 const fs = require('fs');
+const sortBy = require('lodash').sortBy;
+
 const sheetOptionsHub = require('./modules/sheetOptionsHub');
 
 const tasks = sheetOptionsHub.getTasks();
@@ -7,7 +9,7 @@ const records = sheetOptionsHub.getRecords();
 
 const fullNames = sheetOptionsHub.getFullNames();
 
-const results = sheetOptionsHub.joinData(records, tasks, fullNames);
+const results = sortBy(sheetOptionsHub.joinData(records, tasks, fullNames), 'mentorFullName');
 
 const json = JSON.stringify(results, 0, 1);
 

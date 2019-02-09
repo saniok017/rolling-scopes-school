@@ -1,6 +1,7 @@
 import fetch from 'isomorphic-fetch';
 import Error from 'next/error';
-import { uniqBy } from 'lodash';
+import { sortedUniqBy } from 'lodash';
+import MentorsList from '../components/mentorsList';
 
 class Index extends React.Component {
   static async getInitialProps() {
@@ -9,7 +10,7 @@ class Index extends React.Component {
     try {
       const response = await fetch('http://127.0.0.1:3001/data');
       const data = await response.json();
-      mentors = uniqBy(data, 'mentorFullName');
+      mentors = sortedUniqBy(data, 'mentorFullName');
     } catch (err) {
       console.log(err);
       mentors = [];
@@ -28,11 +29,7 @@ class Index extends React.Component {
     return (
       <main> 
         <h1> Mentors </h1>
-        <section>
-          {mentors.map(mentor => (
-            <h2 key={mentor.mentorFullName}>{mentor.mentorFullName}</h2>
-          ))}
-        </section>
+        <MentorsList mentors={mentors} />
       </main>
     )
   }
