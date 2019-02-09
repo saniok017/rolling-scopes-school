@@ -3,7 +3,7 @@ const _ = require('lodash');
 const excelConverter = require('./excelConverter');
 
 module.exports.getFullNames = () => {
-  const WorkBook = XLSX.readFile('src/data/Mentor-students pairs.xlsx');
+  const WorkBook = XLSX.readFile('script/data/Mentor-students pairs.xlsx');
   const lastRowNumber = 147;
   const firstRowNumber = 2;
   const sheetTitle = 'second_name-to_github_account';
@@ -25,7 +25,7 @@ module.exports.getFullNames = () => {
 };
 
 module.exports.getRecords = () => {
-  const WorkBook = XLSX.readFile('src/data/Mentor score.xlsx');
+  const WorkBook = XLSX.readFile('script/data/Mentor score.xlsx');
   const lastRowNumber = 1865;
   const firstRowNumber = 2;
   const sheetTitle = 'Form Responses 1';
@@ -50,7 +50,7 @@ module.exports.getRecords = () => {
 };
 
 module.exports.getTasks = () => {
-  const WorkBook = XLSX.readFile('src/data/Tasks.xlsx');
+  const WorkBook = XLSX.readFile('script/data/Tasks.xlsx');
   const lastRowNumber = 10;
   const firstRowNumber = 2;
   const sheetTitle = 'Sheet1';

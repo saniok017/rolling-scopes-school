@@ -11,6 +11,6 @@ const results = sheetOptionsHub.joinData(records, tasks, fullNames);
 
 const json = JSON.stringify(results, 0, 1);
 
-fs.writeFile('src/data/data.json', json, 'utf8', () => {
+fs.writeFile('script/data/data.json', json, 'utf8', () => {
   console.log('writing is done!');
 });

@@ -1,5 +1,6 @@
 const passport = require('passport');
 const ensureAuthenticated = require('../lib/ensureAuthenticated');
+const data = require('../../script/data/data.json');
 
 const routesHandle = (app) => {
   app.get('/', (req, res) => {
@@ -24,6 +25,10 @@ const routesHandle = (app) => {
     (req, res) => {
       res.redirect('/');
     });
+  app.get('/data', 
+  (req, res) => {
+    res.send(data);
+  });
 
   app.get('/logout', (req, res) => {
     req.logout();
