@@ -10,7 +10,7 @@ const mentorsList = ({mentors}) => (
 
     <style jsx>{`
       .mentor {
-        padding: 1em 0;
+        padding: 0.5em 0;
       }
       .mentor-link {
         font-size: 1rem;

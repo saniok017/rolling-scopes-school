@@ -7,20 +7,24 @@
     "lint": "eslint -c .eslintrc.js ./src/**/*.js",
     "fix-lint": "eslint -c .eslintrc.js ./src/**/*.js --fix",
     "build": "next build",
-    "start": "next start -p 8000",
+    "start:client": " cross-env NODE_ENV=production PORT=8000 node server.js",
     "test": "jest",
-    "dev": "next",
-    "serv": "nodemon login/app.js"
+    "dev": "node server.js",
+    "start:server": "nodemon login/app.js",
+    "start": "npm-run-all -l -p start:server start:client",
+    "deploy": "now --public"
   },
   "author": "saniok017",
   "license": "ISC",
   "devDependencies": {
     "nodemon": "^1.18.9",
+    "npm-run-all": "^4.1.5",
     "path": "^0.12.7"
   },
   "dependencies": {
     "body-parser": "^1.13.3",
     "cors": "^2.8.5",
+    "cross-env": "^5.2.0",
     "ejs": "^2.6.1",
     "express": "^4.16.4",
     "express-partials": "^0.3.0",
@@ -37,6 +41,7 @@
     "react-dom": "^16.8.1",
     "regenerator-runtime": "^0.11.1",
     "router": "^1.1.3",
+    "sw-precache-webpack-plugin": "^0.11.5",
     "xlsx": "^0.14.1"
   },
   "jest": {
