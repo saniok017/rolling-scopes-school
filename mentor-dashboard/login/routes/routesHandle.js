@@ -4,17 +4,12 @@ const data = require('../../script/data/data.json');
 const path = require('path');
 
 const routesHandle = (server, handle, app) => {
-  // server.get('/', (req, res) => {
-  //   res.render('index', { user: req.user });
-  // });
-
   server.get('/account', ensureAuthenticated, (req, res) => {
     res.render('account', { user: req.user });
   });
 
   server.get('/service-worker.js', (req, res) => {
-    const filePath = path.join(__dirname, '../../.next', pathname);
-    console.log(filePath);
+    const filePath = path.join(__dirname, '../../.next', '/service-worker.js');
     app.serveStatic(req, res, filePath);
   });
 
