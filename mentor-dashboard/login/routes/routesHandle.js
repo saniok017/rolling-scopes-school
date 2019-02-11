@@ -1,39 +1,51 @@
 const passport = require('passport');
 const ensureAuthenticated = require('../lib/ensureAuthenticated');
 const data = require('../../script/data/data.json');
+const path = require('path');
 
-const routesHandle = (app) => {
-  app.get('/', (req, res) => {
-    res.render('index', { user: req.user });
-  });
+const routesHandle = (server, handle, app) => {
+  // server.get('/', (req, res) => {
+  //   res.render('index', { user: req.user });
+  // });
 
-  app.get('/account', ensureAuthenticated, (req, res) => {
+  server.get('/account', ensureAuthenticated, (req, res) => {
     res.render('account', { user: req.user });
   });
 
-  app.get('/login', (req, res) => {
+  server.get('/service-worker.js', (req, res) => {
+    const filePath = path.join(__dirname, '../../.next', pathname);
+    console.log(filePath);
+    app.serveStatic(req, res, filePath);
+  });
+
+  server.get('/login', (req, res) => {
     res.render('login', { user: req.user });
   });
 
-  app.get('/auth/github',
+  server.get('/auth/github',
     passport.authenticate('github', { scope: ['user:email'] }),
     (req, res) => {
     });
 
-  app.get('/auth/github/callback',
+  server.get('/auth/github/callback',
     passport.authenticate('github', { failureRedirect: '/login' }),
     (req, res) => {
       res.redirect('/');
     });
-  app.get('/data', 
-  (req, res) => {
+    
+  server.get('/data', 
+    (req, res) => {
     res.send(data);
   });
 
-  app.get('/logout', (req, res) => {
+  server.get('/logout', (req, res) => {
     req.logout();
     res.redirect('/');
   });
+
+  server.get('*', (req, res) => {
+    return handle(req, res)
+  })
 };
 
 module.exports = routesHandle;

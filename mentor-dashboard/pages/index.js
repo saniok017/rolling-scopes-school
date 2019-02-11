@@ -9,7 +9,7 @@ class Index extends React.Component {
     let mentors;
 
     try {
-      const response = await fetch('http://127.0.0.1:3001/data');
+      const response = await fetch(`http://localhost:${process.env.PORT || 3000}/data`);
       const data = await response.json();
       mentors = sortedUniqBy(data, 'mentorFullName');
     } catch (err) {

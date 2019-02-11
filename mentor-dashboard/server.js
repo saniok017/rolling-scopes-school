@@ -1,31 +1,27 @@
-const next = require("next");
-const http = require("http");
-const url = require("url");
-const path = require("path");
+const next = require('next');
+const express = require('express');
+const middlewares = require('./login/middleware/middleware');
+const routesHandle = require('./login/routes/routesHandle');
 
 const port = process.env.PORT || 3000;
-const dev = process.env.NODE_ENV !== "production";
+const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
 const handle = app.getRequestHandler();
 
-app.prepare().then(() => {
-  http
-    .createServer((req, res) => {
-      /* Parse request url to get its pathname */
-      const parsedUrl = url.parse(req.url, true);
-      const { pathname } = parsedUrl;
+app.prepare()
+.then(() => {
+  const server = express()
 
-      /* If a service worker requested, serve it as a static file */
-      if (pathname === "/service-worker.js") {
-        const filePath = path.join(__dirname, ".next", pathname);
-        app.serveStatic(req, res, filePath);
+  middlewares(server);
 
-        /* Otherwise, let Next take care of it */
-      } else {
-        handle(req, res, parsedUrl);
-      }
-    })
-    .listen(port, () => {
-      console.log(`Listening on PORT ${port}`);
-    });
+  routesHandle(server, handle, app);
+  
+  server.listen(port, (err) => {
+    if (err) throw err
+    console.log(`> Ready on http://localhost:${port}`)
+  })
+})
+.catch((ex) => {
+  console.error(ex.stack)
+process.exit(1)
 });
