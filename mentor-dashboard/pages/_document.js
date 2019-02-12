@@ -1,7 +1,7 @@
 import Document, { Head, Main, NextScript } from 'next/document';
 
 export default class MyDocument extends Document {
-  render(){
+  render() {
     return (
       <html lang="ru-RU">
         <Head>
@@ -26,6 +26,6 @@ export default class MyDocument extends Document {
           <NextScript />
         </body>
       </html>
-    )
+    );
   }
 }

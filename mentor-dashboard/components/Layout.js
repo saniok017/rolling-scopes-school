@@ -1,8 +1,15 @@
-import Link from "next/link";
-import Head from "next/head";
-import Router from "next/router";
+import Link from 'next/link';
+import Head from 'next/head';
+import Router from 'next/router';
 
-const Layout = ({ children, title, description, backButton }) => (
+const Layout = (
+  {
+    children,
+    title,
+    description,
+    backButton,
+  },
+) => (
   <div>
     <Head>
       <title>{title}</title>

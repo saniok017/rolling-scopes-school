@@ -1,11 +1,11 @@
-const mentorsList = ({mentors}) => (
+const mentorsList = ({ mentors }) => (
   <React.Fragment>
     {mentors.map(mentor => (
       <section className="mentor" key={mentor.mentorFullName}>
         <h2 className="mentor-link">
           <a href={mentor.mentorGitHub}>{mentor.mentorFullName}</a>
         </h2>
-      </section> 
+      </section>
     ))}
 
     <style jsx>{`
@@ -28,6 +28,6 @@ const mentorsList = ({mentors}) => (
     `}
     </style>
   </React.Fragment>
-)
+);
 
-export default mentorsList
+export default mentorsList;

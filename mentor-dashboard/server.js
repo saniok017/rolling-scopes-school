@@ -9,19 +9,19 @@ const app = next({ dev });
 const handle = app.getRequestHandler();
 
 app.prepare()
-.then(() => {
-  const server = express()
+  .then(() => {
+    const server = express();
 
-  middlewares(server);
+    middlewares(server);
 
-  routesHandle(server, handle, app);
-  
-  server.listen(port, (err) => {
-    if (err) throw err
-    console.log(`> Ready on http://localhost:${port}`)
+    routesHandle(server, handle, app);
+
+    server.listen(port, (err) => {
+      if (err) throw err;
+      console.log(`> Ready on http://localhost:${port}`);
+    });
   })
-})
-.catch((ex) => {
-  console.error(ex.stack)
-process.exit(1)
-});
+  .catch((ex) => {
+    console.error(ex.stack);
+    process.exit(1);
+  });

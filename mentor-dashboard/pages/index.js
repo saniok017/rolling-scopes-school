@@ -2,8 +2,9 @@ import fetch from 'isomorphic-fetch';
 import Error from 'next/error';
 import { sortedUniqBy } from 'lodash';
 import MentorsList from '../components/mentorsList';
-import Layout from "../components/Layout";
+import Layout from '../components/Layout';
 
+// eslint-disable-next-line no-undef
 class Index extends React.Component {
   static async getInitialProps() {
     let mentors;
@@ -21,31 +22,31 @@ class Index extends React.Component {
   }
 
   componentDidMount() {
-    if ("serviceWorker" in navigator) {
+    if ('serviceWorker' in navigator) {
       navigator.serviceWorker
-        .register("/service-worker.js")
-        .then(registration => {
-          console.log("service worker registration successful", registration);
+        .register('/service-worker.js')
+        .then((registration) => {
+          console.log('service worker registration successful', registration);
         })
-        .catch(err => {
-          console.warn("service worker registration failed", err.message);
+        .catch((err) => {
+          console.warn('service worker registration failed', err.message);
         });
     }
   }
 
-  render(){
+  render() {
     const { mentors } = this.props;
 
     if (mentors.length === 0) {
-      return <Error />
+      return <Error />;
     }
 
     return (
-      <Layout title="Mentor-dashboard" description="Rolling scopes school students project made with next.js"> 
+      <Layout title="Mentor-dashboard" description="Rolling scopes school students project made with next.js">
         <h1> Mentors </h1>
         <MentorsList mentors={mentors} />
       </Layout>
-    )
+    );
   }
 }
 

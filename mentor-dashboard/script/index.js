@@ -1,5 +1,5 @@
 const fs = require('fs');
-const sortBy = require('lodash').sortBy;
+const { sortBy } = require('lodash');
 
 const sheetOptionsHub = require('./modules/sheetOptionsHub');
 

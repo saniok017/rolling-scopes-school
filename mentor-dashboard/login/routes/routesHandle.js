@@ -1,7 +1,7 @@
 const passport = require('passport');
+const path = require('path');
 const ensureAuthenticated = require('../lib/ensureAuthenticated');
 const data = require('../../script/data/data.json');
-const path = require('path');
 
 const routesHandle = (server, handle, app) => {
   server.get('/account', ensureAuthenticated, (req, res) => {
@@ -27,20 +27,18 @@ const routesHandle = (server, handle, app) => {
     (req, res) => {
       res.redirect('/');
     });
-    
-  server.get('/data', 
+
+  server.get('/data',
     (req, res) => {
-    res.send(data);
-  });
+      res.send(data);
+    });
 
   server.get('/logout', (req, res) => {
     req.logout();
     res.redirect('/');
   });
 
-  server.get('*', (req, res) => {
-    return handle(req, res)
-  })
+  server.get('*', (req, res) => handle(req, res));
 };
 
 module.exports = routesHandle;
