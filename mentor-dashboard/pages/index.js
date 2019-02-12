@@ -1,24 +1,29 @@
 import fetch from 'isomorphic-fetch';
 import Error from 'next/error';
 import { sortedUniqBy } from 'lodash';
-import MentorsList from '../components/mentorsList';
+import Select from 'react-select';
 import Layout from '../components/Layout';
+
 
 // eslint-disable-next-line no-undef
 class Index extends React.Component {
   static async getInitialProps() {
+    const options = [];
     let mentors;
 
     try {
       const response = await fetch(`http://localhost:${process.env.PORT || 3000}/data`);
       const data = await response.json();
       mentors = sortedUniqBy(data, 'mentorFullName');
+      mentors.forEach(
+        ({ mentorFullName }) => options.push({ value: mentorFullName, label: mentorFullName }),
+      );
     } catch (err) {
       console.log(err);
       mentors = [];
     }
 
-    return { mentors };
+    return { mentors, options };
   }
 
   componentDidMount() {
@@ -35,7 +40,7 @@ class Index extends React.Component {
   }
 
   render() {
-    const { mentors } = this.props;
+    const { mentors, options } = this.props;
 
     if (mentors.length === 0) {
       return <Error />;
@@ -44,7 +49,7 @@ class Index extends React.Component {
     return (
       <Layout title="Mentor-dashboard" description="Rolling scopes school students project made with next.js">
         <h1> Mentors </h1>
-        <MentorsList mentors={mentors} />
+        <Select options={options} />
       </Layout>
     );
   }
