@@ -22,10 +22,19 @@ const Layout = (
             &#x2b05;
           </span>
         )}
-        <Link href="#">
+        <Link href="/">
           <a>
-            <span className="main-title">Rolling scopes school 2018Q3 Mentors-list</span>
+            <span className="main-link">Some Link</span>
           </a>
+        </Link>
+        <Link href="/">
+          <a className="secondary-link">Home</a>
+        </Link>
+        <Link href="/about">
+          <a className="secondary-link">About</a>
+        </Link>
+        <Link href="/login">
+          <a className="secondary-link">Login</a>
         </Link>
       </nav>
 
@@ -41,6 +50,8 @@ const Layout = (
       nav {
         background: #f60;
         padding: 1em;
+        display: flex;
+        justify-content: space-between;
       }
       nav > * {
         display: inline-block;
@@ -49,7 +60,7 @@ const Layout = (
       nav a {
         text-decoration: none;
       }
-      nav .main-title {
+      nav .main-link {
         font-weight: bold;
       }
       nav .back-button {
