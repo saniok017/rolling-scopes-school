@@ -3,10 +3,12 @@ import Error from 'next/error';
 import { sortedUniqBy } from 'lodash';
 import Select from 'react-select';
 import Layout from '../components/Layout';
+import Table from '../components/Table'
 
 
 // eslint-disable-next-line no-undef
 class Index extends React.Component {
+  state = { currentName: "not selected"}
   static async getInitialProps() {
     const options = [];
     let mentors;
@@ -39,8 +41,13 @@ class Index extends React.Component {
     }
   }
 
+  handleChange = event => {
+    this.setState({ currentName: event.label });
+  };
+
   render() {
     const { mentors, options } = this.props;
+    const { currentName } = this.state;
 
     if (mentors.length === 0) {
       return <Error />;
@@ -49,7 +56,11 @@ class Index extends React.Component {
     return (
       <Layout title="Mentor-dashboard" description="Rolling scopes school students project made with next.js">
         <h1> Mentors </h1>
-        <Select options={options} />
+        <Select
+        options={options}
+        onChange={this.handleChange}
+         />
+         <Table value={currentName} />
       </Layout>
     );
   }
