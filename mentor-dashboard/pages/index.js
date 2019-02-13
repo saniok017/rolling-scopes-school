@@ -3,12 +3,22 @@ import Error from 'next/error';
 import { sortedUniqBy } from 'lodash';
 import Select from 'react-select';
 import Layout from '../components/Layout';
-import Table from '../components/Table'
+import Table from '../components/Table';
 
-
+function getLastUser() {
+  if (typeof window !== 'undefined') {
+    return localStorage.getItem('lastSearchedUser');
+  }
+  return null;
+}
 // eslint-disable-next-line no-undef
 class Index extends React.Component {
-  state = { currentName: "not selected"}
+  state = {
+    currentName: null,
+    lastSearchedUser: getLastUser(),
+  }
+
+
   static async getInitialProps() {
     const options = [];
     let mentors;
@@ -16,7 +26,7 @@ class Index extends React.Component {
     try {
       const response = await fetch(`http://localhost:${process.env.PORT || 3000}/data`);
       const data = await response.json();
-      mentors = sortedUniqBy(data, 'mentorFullName');
+      mentors = await sortedUniqBy(data, 'mentorFullName');
       mentors.forEach(
         ({ mentorFullName }) => options.push({ value: mentorFullName, label: mentorFullName }),
       );
@@ -41,13 +51,14 @@ class Index extends React.Component {
     }
   }
 
-  handleChange = event => {
+  handleChange = (event) => {
     this.setState({ currentName: event.label });
+    localStorage.setItem('lastSearchedUser', `${event.label}`);
   };
 
   render() {
     const { mentors, options } = this.props;
-    const { currentName } = this.state;
+    const { currentName, lastSearchedUser } = this.state;
 
     if (mentors.length === 0) {
       return <Error />;
@@ -60,7 +71,7 @@ class Index extends React.Component {
         options={options}
         onChange={this.handleChange}
          />
-         <Table value={currentName} />
+         <Table value={currentName || lastSearchedUser} />
       </Layout>
     );
   }
