@@ -22,7 +22,14 @@ const styles = theme => ({
 let id = 0;
 function createData(name, calories, fat, carbs, protein) {
   id += 1;
-  return { id, name, calories, fat, carbs, protein };
+  return {
+    id,
+    name,
+    calories,
+    fat,
+    carbs,
+    protein,
+  };
 }
 
 const rows = [

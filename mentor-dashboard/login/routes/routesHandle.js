@@ -25,7 +25,9 @@ const routesHandle = (server, handle, app) => {
   server.get('/auth/github/callback',
     passport.authenticate('github', { failureRedirect: '/login' }),
     (req, res) => {
-      res.redirect('/');
+      const actualPage = '/';
+      const queryParams = { userUrl: req.user.profileUrl };
+      app.render(req, res, actualPage, queryParams);
     });
 
   server.get('/data',

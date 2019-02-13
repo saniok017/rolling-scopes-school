@@ -19,7 +19,9 @@ class Index extends React.Component {
   }
 
 
-  static async getInitialProps() {
+  static async getInitialProps(context) {
+    const { userUrl } = context.query;
+    let logineduser = null;
     const options = [];
     let mentors;
 
@@ -28,14 +30,17 @@ class Index extends React.Component {
       const data = await response.json();
       mentors = await sortedUniqBy(data, 'mentorFullName');
       mentors.forEach(
-        ({ mentorFullName }) => options.push({ value: mentorFullName, label: mentorFullName }),
+        ({ mentorFullName, mentorGitHub }) => {
+          options.push({ value: mentorFullName, label: mentorFullName });
+          if (mentorGitHub === userUrl) logineduser = mentorFullName;
+        },
       );
     } catch (err) {
       console.log(err);
       mentors = [];
     }
 
-    return { mentors, options };
+    return { mentors, options, logineduser };
   }
 
   componentDidMount() {
@@ -57,7 +62,7 @@ class Index extends React.Component {
   };
 
   render() {
-    const { mentors, options } = this.props;
+    const { mentors, options, logineduser } = this.props;
     const { currentName, lastSearchedUser } = this.state;
 
     if (mentors.length === 0) {
@@ -65,13 +70,13 @@ class Index extends React.Component {
     }
 
     return (
-      <Layout title="Mentor-dashboard" description="Rolling scopes school students project made with next.js">
+      <Layout title="Mentor-dashboard" description="Rolling scopes school students project made with next.js" user={logineduser}>
         <h1> Mentors </h1>
         <Select
         options={options}
         onChange={this.handleChange}
          />
-         <Table value={currentName || lastSearchedUser} />
+         <Table value={currentName || logineduser || lastSearchedUser} />
       </Layout>
     );
   }

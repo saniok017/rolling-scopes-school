@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Head from 'next/head';
 import Router from 'next/router';
+import { Fragment } from 'react';
 
 const Layout = (
   {
@@ -8,6 +9,7 @@ const Layout = (
     title,
     description,
     backButton,
+    user,
   },
 ) => (
   <div>
@@ -33,9 +35,13 @@ const Layout = (
         <Link href="/about">
           <a className="secondary-link">About</a>
         </Link>
-        <Link href="/login">
-          <a className="secondary-link">Login</a>
-        </Link>
+        {(!user)
+          ? <Link href="/auth/github"><a className="secondary-link">Login</a></Link>
+          : <Fragment>
+              <Link href="/account"><a className="secondary-link">Account</a></Link>
+              <Link href="/logout"><a className="secondary-link">Log Out</a></Link>
+            </Fragment>
+        }
       </nav>
 
       {children}
