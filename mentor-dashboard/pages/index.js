@@ -4,12 +4,21 @@ import Select from 'react-select';
 import Layout from '../components/Layout';
 import Table from '../components/Table';
 
+const PORT = process.env.PORT || 3000;
+
 function getLastUser() {
   if (typeof window !== 'undefined') {
     return localStorage.getItem('lastSearchedUser');
   }
   return null;
 }
+
+async function getTableData(name) {
+  const response = await fetch(`http://localhost:${PORT}/tableData/${name}`);
+  const tableData = await response.json();
+  console.log(tableData);
+}
+
 // eslint-disable-next-line no-undef
 class Index extends React.Component {
   state = {
@@ -22,7 +31,7 @@ class Index extends React.Component {
     let options;
 
     try {
-      const response = await fetch(`http://localhost:${process.env.PORT || 3000}/data/options`);
+      const response = await fetch(`http://localhost:${PORT}/data/options`);
       options = await response.json();
     } catch (err) {
       console.log(err);
@@ -48,6 +57,7 @@ class Index extends React.Component {
           console.warn('service worker registration failed', err.message);
         });
     }
+    this.setState({ tableData: getTableData(this.state.lastSearchedUser) });
   }
 
   handleChange = (event) => {
@@ -56,8 +66,13 @@ class Index extends React.Component {
   };
 
   render() {
-    const { options, loginedMentor, logineduser } = this.props;
     const { currentName, lastSearchedUser } = this.state;
+    const {
+      options,
+      loginedMentor,
+      logineduser,
+      loginedTrainee,
+    } = this.props;
 
     if (options.length === 0) {
       return <Error />;

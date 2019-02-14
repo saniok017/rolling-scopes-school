@@ -1,6 +1,6 @@
 const passport = require('passport');
 const path = require('path');
-const { sortedUniqBy } = require('lodash');
+const { sortedUniqBy, filter } = require('lodash');
 const ensureAuthenticated = require('../lib/ensureAuthenticated');
 const data = require('../../script/data/data.json');
 
@@ -57,6 +57,13 @@ const routesHandle = (server, handle, app) => {
       },
     );
     res.send(options);
+  });
+
+  server.get('/tableData/:mentorFullName', (req, res) => {
+    const tableData = filter(data,
+      dataObject => dataObject.mentorFullName === req.params.mentorFullName);
+
+    res.send(tableData);
   });
 
   server.get('/logout', (req, res) => {
