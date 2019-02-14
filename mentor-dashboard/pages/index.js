@@ -1,6 +1,5 @@
 import fetch from 'isomorphic-fetch';
 import Error from 'next/error';
-import { sortedUniqBy } from 'lodash';
 import Select from 'react-select';
 import Layout from '../components/Layout';
 import Table from '../components/Table';
@@ -18,29 +17,24 @@ class Index extends React.Component {
     lastSearchedUser: getLastUser(),
   }
 
-
   static async getInitialProps(context) {
-    const { userUrl } = context.query;
-    let logineduser = null;
-    const options = [];
-    let mentors;
+    const { logineduser, loginedMentor, loginedTrainee } = context.query;
+    let options;
 
     try {
-      const response = await fetch(`http://localhost:${process.env.PORT || 3000}/data`);
-      const data = await response.json();
-      mentors = await sortedUniqBy(data, 'mentorFullName');
-      mentors.forEach(
-        ({ mentorFullName, mentorGitHub }) => {
-          options.push({ value: mentorFullName, label: mentorFullName });
-          if (mentorGitHub === userUrl) logineduser = mentorFullName;
-        },
-      );
+      const response = await fetch(`http://localhost:${process.env.PORT || 3000}/data/options`);
+      options = await response.json();
     } catch (err) {
       console.log(err);
-      mentors = [];
+      options = [];
     }
 
-    return { mentors, options, logineduser };
+    return {
+      options,
+      loginedMentor,
+      logineduser,
+      loginedTrainee,
+    };
   }
 
   componentDidMount() {
@@ -62,10 +56,10 @@ class Index extends React.Component {
   };
 
   render() {
-    const { mentors, options, logineduser } = this.props;
+    const { options, loginedMentor, logineduser } = this.props;
     const { currentName, lastSearchedUser } = this.state;
 
-    if (mentors.length === 0) {
+    if (options.length === 0) {
       return <Error />;
     }
 
@@ -76,7 +70,7 @@ class Index extends React.Component {
         options={options}
         onChange={this.handleChange}
          />
-         <Table value={currentName || logineduser || lastSearchedUser} />
+         <Table value={currentName || loginedMentor || lastSearchedUser} />
       </Layout>
     );
   }

@@ -11,8 +11,6 @@ const config = require('../config/config');
 const passportInitializer = require('../lib/passportInitializer');
 
 module.exports = (app) => {
-  app.set('views', path.resolve(__dirname, '../views'));
-  app.set('view engine', 'ejs');
   app.use(partials());
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(bodyParser.json());

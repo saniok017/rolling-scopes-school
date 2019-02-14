@@ -1,7 +1,7 @@
 const next = require('next');
 const express = require('express');
-const middlewares = require('./login/middleware/middleware');
-const routesHandle = require('./login/routes/routesHandle');
+const middlewares = require('./server/middleware/middleware');
+const routesHandle = require('./server/routes/routesHandle');
 
 const port = process.env.PORT || 3000;
 const dev = process.env.NODE_ENV !== 'production';

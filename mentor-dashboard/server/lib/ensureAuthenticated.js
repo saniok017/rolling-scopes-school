@@ -1,7 +1,6 @@
 const ensureAuthenticated = (req, res, next) => {
   if (req.isAuthenticated()) { return next(); }
-  // TODO need to handle redirect route
-  res.redirect('/login');
+  res.redirect('/');
   return false;
 };
 
