@@ -1,8 +1,10 @@
 import fetch from 'isomorphic-fetch';
 import Error from 'next/error';
 import Select from 'react-select';
+import PropTypes from 'prop-types';
 import Layout from '../components/Layout';
 import Table from '../components/Table';
+
 
 const PORT = process.env.PORT || 3000;
 
@@ -16,7 +18,8 @@ function getLastUser() {
 async function getTableData(name) {
   const response = await fetch(`http://localhost:${PORT}/tableData/${name}`);
   const tableData = await response.json();
-  console.log(tableData);
+
+  return tableData;
 }
 
 // eslint-disable-next-line no-undef
@@ -24,6 +27,7 @@ class Index extends React.Component {
   state = {
     currentName: null,
     lastSearchedUser: getLastUser(),
+    tableData: this.props.tableData,
   }
 
   static async getInitialProps(context) {
@@ -57,7 +61,7 @@ class Index extends React.Component {
           console.warn('service worker registration failed', err.message);
         });
     }
-    this.setState({ tableData: getTableData(this.state.lastSearchedUser) });
+    // this.setState({ tableData: getTableData(this.state.lastSearchedUser) });
   }
 
   handleChange = (event) => {
@@ -66,7 +70,7 @@ class Index extends React.Component {
   };
 
   render() {
-    const { currentName, lastSearchedUser } = this.state;
+    const { currentName, lastSearchedUser, tableData } = this.state;
     const {
       options,
       loginedMentor,
@@ -79,16 +83,35 @@ class Index extends React.Component {
     }
 
     return (
-      <Layout title="Mentor-dashboard" description="Rolling scopes school students project made with next.js" user={logineduser}>
+      <Layout title='Mentor-dashboard' description='Rolling scopes school students project made with next.js' user={logineduser}>
         <h1> Mentors </h1>
         <Select
         options={options}
         onChange={this.handleChange}
          />
-         <Table value={currentName || loginedMentor || lastSearchedUser} />
+         <Table mentorName={currentName || loginedMentor || lastSearchedUser} data={tableData} />
       </Layout>
     );
   }
 }
+
+Index.defaultProps = {
+  tableData: [{
+    taskName: 'Code Jam CV',
+    taskStatus: 'Checked',
+    recordTaskName: 'string',
+    mentorGitHub: 'string',
+    studentGitHub: 'string',
+    studentNickName: 'string',
+    mentorFullName: 'ALIAKSEI KRAUCHANKA',
+    pullRequest: 'string',
+    score: 100,
+    comment: 'string',
+  }],
+};
+
+Index.propTypes = {
+  tableData: PropTypes.array.isRequired,
+};
 
 export default Index;
