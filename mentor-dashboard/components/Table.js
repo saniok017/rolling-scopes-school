@@ -1,4 +1,3 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -26,6 +25,8 @@ function makeId(row) {
 
 function SimpleTable(props) {
   const { classes, mentorName, data } = props;
+  console.log(data);
+
   const rows = data.map(row => makeId(row));
 
   return (

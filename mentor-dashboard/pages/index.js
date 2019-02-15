@@ -18,6 +18,7 @@ function getLastUser() {
 async function getTableData(name) {
   const response = await fetch(`http://localhost:${PORT}/tableData/${name}`);
   const tableData = await response.json();
+  console.log(tableData);
 
   return tableData;
 }
@@ -61,11 +62,13 @@ class Index extends React.Component {
           console.warn('service worker registration failed', err.message);
         });
     }
-    // this.setState({ tableData: getTableData(this.state.lastSearchedUser) });
+    getTableData(this.state.lastSearchedUser)
+      .then(Response => this.setState({ tableData: Response }));
   }
 
   handleChange = (event) => {
-    this.setState({ currentName: event.label });
+    this.setState({ currentName: event.label }, () => getTableData(event.label)
+      .then(Response => ({ tableData: Response })));
     localStorage.setItem('lastSearchedUser', `${event.label}`);
   };
 
@@ -84,7 +87,7 @@ class Index extends React.Component {
 
     return (
       <Layout title='Mentor-dashboard' description='Rolling scopes school students project made with next.js' user={logineduser}>
-        <h1> Mentors </h1>
+        <h1 style={{ width: '1200px', marginLeft: '38%', marginRight: 'auto' }}> Mentor-dashboard </h1>
         <Select
         options={options}
         onChange={this.handleChange}
