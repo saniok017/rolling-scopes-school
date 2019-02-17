@@ -16,7 +16,43 @@ const styles = theme => ({
   table: {
     minWidth: 200,
   },
+  gray: {
+    backgroundColor: '#CCCCCC',
+    borderRight: '1px solid rgba(224, 224, 224, 1)',
+  },
+  green: {
+    backgroundColor: '#D9EAD3',
+    borderRight: '1px solid rgba(224, 224, 224, 1)',
+  },
+  yellow: {
+    backgroundColor: '#FFF2CC',
+    borderRight: '1px solid rgba(224, 224, 224, 1)',
+  },
+  red: {
+    backgroundColor: '#EA9999',
+    borderRight: '1px solid rgba(224, 224, 224, 1)',
+  },
 });
+
+function choosePaint(studentName, task, classes) {
+  if (task.taskStatus === 'ToDo') return classes.gray;
+  if (task.taskStatus === 'In Progress') return classes.yellow;
+  if (task.taskStatus === 'Checking') return classes.red;
+  return classes.green;
+}
+
+function makeRows(data) {
+  const students = {};
+
+  data.forEach((row) => {
+    const currentStudent = row.studentNickName;
+    if (!students.currentStudent) Object.assign(students, { [currentStudent]: [] });
+    else students.currentStudent.concat([row.recordTaskName]);
+  });
+
+  console.dir(students);
+  return Object.keys(students);
+}
 
 function SimpleTable(props) {
   const {
@@ -26,16 +62,7 @@ function SimpleTable(props) {
     tasks,
   } = props;
 
-  const students = {};
-  const status = [];
-
-  data.forEach((row) => {
-    // Object.assign(tasks, { [row.taskName]: row.taskName });
-    Object.assign(students, { [row.studentNickName]: { [row.taskName]: row.taskStatus } });
-  });
-  // const taskArray = Object.keys(tasks);
-  const rows = Object.keys(students);
-  console.dir(students);
+  const rows = makeRows(data);
 
   return (
     <Paper className={classes.root}>
@@ -47,12 +74,19 @@ function SimpleTable(props) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map(row => (
-            <TableRow key={row}>
+          {rows.map(studentName => (
+            <TableRow key={studentName}>
               <TableCell component="th" scope="row">
-                {row}
+                {studentName}
               </TableCell>
-              {tasks.map(task => <TableCell align="left">{task.status}</TableCell>)}
+              {tasks.map(task => (
+              <TableCell
+                  className={choosePaint(studentName, task, classes)}
+                  padding={'dense'}
+                  key={task.name}
+                  align="left">
+                    {task.taskStatus}
+              </TableCell>))}
             </TableRow>
           ))}
         </TableBody>
