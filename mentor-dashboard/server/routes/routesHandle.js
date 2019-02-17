@@ -3,6 +3,7 @@ const path = require('path');
 const { sortedUniqBy, filter } = require('lodash');
 const ensureAuthenticated = require('../lib/ensureAuthenticated');
 const data = require('../../script/data/data.json');
+const tasks = require('../../script/data/tasks.json');
 
 
 const routesHandle = (server, handle, app) => {
@@ -56,7 +57,7 @@ const routesHandle = (server, handle, app) => {
         options.push({ value: mentorFullName, label: mentorFullName });
       },
     );
-    res.send(options);
+    res.send({ options, tasks });
   });
 
   server.get('/tableData/:mentorFullName', (req, res) => {

@@ -49,7 +49,7 @@ const Layout = (
 
     <style jsx>{`
       .container {
-        max-width: 1200px;
+        max-width: 90vw;
         margin: 0 auto;
         background: #f6f6ef;
       }

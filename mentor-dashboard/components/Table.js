@@ -10,24 +10,32 @@ import Paper from '@material-ui/core/Paper';
 const styles = theme => ({
   root: {
     width: '100%',
-    marginTop: theme.spacing.unit * 3,
+    marginTop: theme.spacing.unit * 2,
     overflowX: 'auto',
   },
   table: {
-    minWidth: 300,
+    minWidth: 200,
   },
 });
 
-function makeId(row) {
-  Object.assign(row, { id: `${row.studentNickName} ${row.taskName}` });
-  return row;
-}
-
 function SimpleTable(props) {
-  const { classes, mentorName, data } = props;
-  console.log(data);
+  const {
+    classes,
+    mentorName,
+    data,
+    tasks,
+  } = props;
 
-  const rows = data.map(row => makeId(row));
+  const students = {};
+  const status = [];
+
+  data.forEach((row) => {
+    // Object.assign(tasks, { [row.taskName]: row.taskName });
+    Object.assign(students, { [row.studentNickName]: { [row.taskName]: row.taskStatus } });
+  });
+  // const taskArray = Object.keys(tasks);
+  const rows = Object.keys(students);
+  console.dir(students);
 
   return (
     <Paper className={classes.root}>
@@ -35,16 +43,16 @@ function SimpleTable(props) {
         <TableHead>
           <TableRow>
             <TableCell>{mentorName}</TableCell>
-            {rows.map(row => <TableCell key={row.id} align="left">{row.taskName}</TableCell>)}
+            {tasks.map(task => <TableCell padding={'dense'} key={task.name} align="left">{task.name}</TableCell>)}
           </TableRow>
         </TableHead>
         <TableBody>
           {rows.map(row => (
-            <TableRow key={row.id}>
+            <TableRow key={row}>
               <TableCell component="th" scope="row">
-                {row.studentNickName}
+                {row}
               </TableCell>
-              <TableCell align="left">{row.score}</TableCell>
+              {tasks.map(task => <TableCell align="left">{task.status}</TableCell>)}
             </TableRow>
           ))}
         </TableBody>

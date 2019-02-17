@@ -63,12 +63,13 @@ class Index extends React.Component {
         });
     }
     getTableData(this.state.lastSearchedUser)
-      .then(Response => this.setState({ tableData: Response }));
+      .then(Response => this.setState({ tableData: Response }))
+      .catch(error => console.warn(error));
   }
 
   handleChange = (event) => {
-    this.setState({ currentName: event.label }, () => getTableData(event.label)
-      .then(Response => ({ tableData: Response })));
+    getTableData(event.label)
+      .then(Response => this.setState({ currentName: event.label, tableData: Response }));
     localStorage.setItem('lastSearchedUser', `${event.label}`);
   };
 
@@ -89,10 +90,14 @@ class Index extends React.Component {
       <Layout title='Mentor-dashboard' description='Rolling scopes school students project made with next.js' user={logineduser}>
         <h1 style={{ width: '1200px', marginLeft: '38%', marginRight: 'auto' }}> Mentor-dashboard </h1>
         <Select
-        options={options}
+        options={options.options}
         onChange={this.handleChange}
          />
-         <Table mentorName={currentName || loginedMentor || lastSearchedUser} data={tableData} />
+         <Table
+          mentorName={currentName || loginedMentor || lastSearchedUser}
+          data={tableData}
+          tasks={options.tasks}
+          />
       </Layout>
     );
   }
