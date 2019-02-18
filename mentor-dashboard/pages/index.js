@@ -18,7 +18,6 @@ function getLastUser() {
 async function getTableData(name) {
   const response = await fetch(`http://localhost:${PORT}/tableData/${name}`);
   const tableData = await response.json();
-  console.log(tableData);
 
   return tableData;
 }
@@ -104,22 +103,13 @@ class Index extends React.Component {
 }
 
 Index.defaultProps = {
-  tableData: [{
-    taskName: 'Code Jam CV',
-    taskStatus: 'Checked',
-    recordTaskName: 'string',
-    mentorGitHub: 'string',
-    studentGitHub: 'string',
-    studentNickName: 'string',
-    mentorFullName: 'ALIAKSEI KRAUCHANKA',
-    pullRequest: 'string',
-    score: 100,
-    comment: 'string',
-  }],
+  tableData: {
+    studentNickName: ['task', 'task'],
+  },
 };
 
 Index.propTypes = {
-  tableData: PropTypes.array.isRequired,
+  tableData: PropTypes.object.isRequired,
 };
 
 export default Index;

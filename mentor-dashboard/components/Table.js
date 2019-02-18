@@ -32,33 +32,18 @@ const styles = theme => ({
     backgroundColor: '#EA9999',
     borderRight: '1px solid rgba(224, 224, 224, 1)',
   },
+  bardo: {
+    backgroundColor: '#A61C00',
+    borderRight: '1px solid rgba(224, 224, 224, 1)',
+  },
 });
 
-function choosePaint(studentName, task, classes) {
+function choosePaint(task, classes, checkedTasks) {
   if (task.taskStatus === 'ToDo') return classes.gray;
   if (task.taskStatus === 'In Progress') return classes.yellow;
-  if (task.taskStatus === 'Checking') return classes.red;
+  if (task.taskStatus === 'Checking' && !checkedTasks.includes(task.name)) return classes.red;
+  if (task.taskStatus === 'Checked' && !checkedTasks.includes(task.name)) return classes.bardo;
   return classes.green;
-}
-
-function makeRows(data) {
-  const students = {};
-
-
-  data.forEach((row) => {
-    const currentStudent = row.studentNickName;
-    if (!students.currentStudent) {
-      Object.assign(students, {
-        [currentStudent]: data.map((object) => {
-          if (currentStudent === object.studentNickName) return object.recordTaskName;
-          return false;
-        }).filter(task => task !== false),
-      });
-    }
-  });
-
-  console.dir(students);
-  return Object.keys(students);
 }
 
 function SimpleTable(props) {
@@ -69,7 +54,10 @@ function SimpleTable(props) {
     tasks,
   } = props;
 
-  const rows = makeRows(data);
+  const rows = Object.keys(data);
+
+  console.log(data);
+
 
   return (
     <Paper className={classes.root}>
@@ -88,7 +76,7 @@ function SimpleTable(props) {
               </TableCell>
               {tasks.map(task => (
               <TableCell
-                  className={choosePaint(studentName, task, classes)}
+                  className={choosePaint(task, classes, data[studentName])}
                   padding={'dense'}
                   key={task.name}
                   align="left">

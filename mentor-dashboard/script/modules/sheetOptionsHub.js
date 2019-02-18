@@ -72,7 +72,7 @@ module.exports.getTasks = () => {
 
 module.exports.joinData = (records, tasks, fullNames) => records
   .map((record) => {
-    let studentNickName = record.student.split('/').slice(-1)[0];
+    let studentNickName = record.student.split('/').slice(-1)[0].toLowerCase();
     let mentorNickName = record.mentor.split('/').slice(-1)[0];
     const gitHub = 'https://github.com/';
 
@@ -83,7 +83,7 @@ module.exports.joinData = (records, tasks, fullNames) => records
         break;
       case 'Nemkev':
         mentorNickName = 'Shank111';
-        studentNickName = 'Nemkev';
+        studentNickName = 'nemkev';
         break;
       default:
         break;

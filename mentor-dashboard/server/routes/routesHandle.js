@@ -4,6 +4,7 @@ const { sortedUniqBy, filter } = require('lodash');
 const ensureAuthenticated = require('../lib/ensureAuthenticated');
 const data = require('../../script/data/data.json');
 const tasks = require('../../script/data/tasks.json');
+const makeTableData = require('../lib/makeTableData');
 
 
 const routesHandle = (server, handle, app) => {
@@ -61,9 +62,9 @@ const routesHandle = (server, handle, app) => {
   });
 
   server.get('/tableData/:mentorFullName', (req, res) => {
-    const tableData = filter(data,
+    const mentorData = filter(data,
       dataObject => dataObject.mentorFullName === req.params.mentorFullName);
-
+    const tableData = makeTableData(mentorData);
     res.send(tableData);
   });
 
