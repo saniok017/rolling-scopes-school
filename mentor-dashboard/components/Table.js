@@ -44,10 +44,17 @@ function choosePaint(studentName, task, classes) {
 function makeRows(data) {
   const students = {};
 
+
   data.forEach((row) => {
     const currentStudent = row.studentNickName;
-    if (!students.currentStudent) Object.assign(students, { [currentStudent]: [] });
-    else students.currentStudent.concat([row.recordTaskName]);
+    if (!students.currentStudent) {
+      Object.assign(students, {
+        [currentStudent]: data.map((object) => {
+          if (currentStudent === object.studentNickName) return object.recordTaskName;
+          return false;
+        }).filter(task => task !== false),
+      });
+    }
   });
 
   console.dir(students);
