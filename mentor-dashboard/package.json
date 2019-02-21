@@ -17,13 +17,16 @@
   "author": "saniok017",
   "license": "ISC",
   "devDependencies": {
+    "@babel/preset-env": "^7.3.1",
+    "@babel/preset-react": "^7.0.0",
     "enzyme-adapter-react-16": "^1.9.1",
     "jest": "^24.1.0",
     "jest-environment-enzyme": "^7.0.1",
     "jest-enzyme": "^7.0.1",
     "nodemon": "^1.18.9",
     "npm-run-all": "^4.1.5",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "react-test-renderer": "^16.8.3"
   },
   "dependencies": {
     "enzyme": "^3.9.0",
@@ -71,6 +74,9 @@
       "jest-enzyme"
     ],
     "testEnvironment": "enzyme",
+    "testEnvironmentOptions": {
+      "enzymeAdapter": "react16"
+    },
     "moduleNameMapper": {
       "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga|xlsx|html)$": "<rootDir>/__mocks__/fileMock.js",
       "\\.(css|less)$": "<rootDir>/__mocks__/styleMock.js"
