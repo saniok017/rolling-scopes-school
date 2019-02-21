@@ -12,6 +12,29 @@ const routesHandle = (server, handle, app) => {
     res.render('account', { user: req.user });
   });
 
+  // server.get('/', ensureAuthenticated, (req, res) => {
+  //   const renderPage = '/';
+  //   let mentor;
+  //   let trainee;
+  //   data.forEach(
+  //     (dataObject) => {
+  //       if (dataObject.mentorGitHub === req.user.profileUrl) {
+  //         mentor = dataObject.mentorFullName;
+  //       }
+  //       if (dataObject.studentGitHub === req.user.profileUrl) {
+  //         trainee = dataObject.studentNickName;
+  //       }
+  //     },
+  //   );
+  //   const queryParams = {
+  //     logineduser: req.user,
+  //     loginedMentor: mentor,
+  //     loginedTrainee: trainee,
+  //   };
+  //   app.render(req, res, renderPage, queryParams);
+  //   res.render('account', { user: req.user });
+  // });
+
   server.get('/service-worker.js', (req, res) => {
     const filePath = path.join(__dirname, '../../.next', '/service-worker.js');
     app.serveStatic(req, res, filePath);

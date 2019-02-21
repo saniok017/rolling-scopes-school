@@ -3,7 +3,7 @@ import Error from 'next/error';
 import Select from 'react-select';
 import PropTypes from 'prop-types';
 import Layout from '../components/Layout';
-import Table from '../components/Table';
+import Table from '../components/Table/Table';
 
 
 const PORT = process.env.PORT || 3000;

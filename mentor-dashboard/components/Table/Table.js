@@ -6,40 +6,11 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-
-const styles = theme => ({
-  root: {
-    width: '100%',
-    marginTop: theme.spacing.unit * 2,
-    overflowX: 'auto',
-  },
-  table: {
-    minWidth: 200,
-  },
-  gray: {
-    backgroundColor: '#CCCCCC',
-    borderRight: '1px solid rgba(224, 224, 224, 1)',
-  },
-  green: {
-    backgroundColor: '#D9EAD3',
-    borderRight: '1px solid rgba(224, 224, 224, 1)',
-  },
-  yellow: {
-    backgroundColor: '#FFF2CC',
-    borderRight: '1px solid rgba(224, 224, 224, 1)',
-  },
-  red: {
-    backgroundColor: '#EA9999',
-    borderRight: '1px solid rgba(224, 224, 224, 1)',
-  },
-  bardo: {
-    backgroundColor: '#A61C00',
-    borderRight: '1px solid rgba(224, 224, 224, 1)',
-  },
-});
+import styles from './styles';
 
 function choosePaint(task, classes, checkedTasks) {
-  if (task.taskStatus === 'ToDo') return classes.gray;
+  if (task.taskStatus === 'Not Defined' && checkedTasks.includes(task.name)) return classes.green;
+  if (task.taskStatus === 'ToDo' || task.taskStatus === 'Not Defined') return classes.gray;
   if (task.taskStatus === 'In Progress') return classes.yellow;
   if (task.taskStatus === 'Checking' && !checkedTasks.includes(task.name)) return classes.red;
   if (task.taskStatus === 'Checked' && !checkedTasks.includes(task.name)) return classes.bardo;
@@ -55,9 +26,6 @@ function SimpleTable(props) {
   } = props;
 
   const rows = Object.keys(data);
-
-  console.log(data);
-
 
   return (
     <Paper className={classes.root}>

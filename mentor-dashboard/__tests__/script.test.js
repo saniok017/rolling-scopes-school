@@ -24,25 +24,26 @@ describe('script', () => {
   it('getFullNames working', () => {
     expect(fullNames).toBeDefined();
   });
-  it('getTasks currect length', () => {
-    expect(tasks.length).toBe(9);
+  it('Tasks correct length', () => {
+    expect(tasks.length).toBe(10);
   });
-  it('getRecords currect length', () => {
+  it('Records correct length', () => {
     expect(records.length).toBe(1864);
   });
-  it('fullNames currect length', () => {
-    expect(fullNames.length).toBe(146);
+  it('fullNames correct length', () => {
+    expect(fullNames.length).toBe(149);
   });
-  it('merge data currectly', () => {
+  it('merge data correctly', () => {
     const results = sortBy(sheetOptionsHub.joinData(records, tasks, fullNames), 'mentorFullName');
     expect(results.length).toBe(1864);
   });
   it('check for deep equality', () => {
+    // eslint-disable-next-line no-useless-escape
     expect(tasks).toContainEqual({ name: 'Code Jam \"CV\"', taskStatus: 'Checked' });
   });
-  it('merge data currectly', () => {
+  it('correct active mentors quantity', () => {
     const results = sortBy(sheetOptionsHub.joinData(records, tasks, fullNames), 'mentorFullName');
     const mentors = sortedUniqBy(results, 'mentorFullName');
-    expect(mentors.length).toBe(132);
+    expect(mentors.length).toBe(135);
   });
 });

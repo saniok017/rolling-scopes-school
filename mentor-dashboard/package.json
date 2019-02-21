@@ -4,13 +4,13 @@
   "description": "mentor-dashboard",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint -c .eslintrc.js ./src/**/*.js",
+    "lint": "eslint -c .eslintrc.js ./**/*.js",
     "fix-lint": "eslint -c .eslintrc.js ./components/**/*.js --fix",
     "build": "next build",
     "start": " cross-env NODE_ENV=production PORT=8000 node server.js",
     "test": "jest",
     "dev": "nodemon server.js",
-    "start:server": "nodemon login/app.js",
+    "script": "node script/index.js",
     "start:all": "npm-run-all -l -p start:server start",
     "deploy": "now --public"
   },
@@ -67,7 +67,9 @@
     "transform": {
       "^.+\\.jsx?$": "babel-jest"
     },
-    "setupFilesAfterEnv": ["jest-enzyme"],
+    "setupFilesAfterEnv": [
+      "jest-enzyme"
+    ],
     "testEnvironment": "enzyme",
     "moduleNameMapper": {
       "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga|xlsx|html)$": "<rootDir>/__mocks__/fileMock.js",

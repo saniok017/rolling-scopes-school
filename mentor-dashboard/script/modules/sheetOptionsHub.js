@@ -1,6 +1,11 @@
 const XLSX = require('xlsx');
-const _ = require('lodash');
+const { words } = require('lodash');
 const excelConverter = require('./excelConverter');
+
+const missingTasks = [{ name: 'Presentation', taskStatus: 'Not Defined' }];
+const missingMentors = [{ name: 'NaaruSon', surname: 'NaaruSon', gitHub: 'https://github.com/NaaruSon' },
+  { name: 'BloodofDen', surname: 'BloodofDen', gitHub: 'https://github.com/BloodofDen' },
+  { name: 'turovets', surname: 'turovets', gitHub: 'https://github.com/turovets' }];
 
 module.exports.getFullNames = () => {
   const WorkBook = XLSX.readFile('script/data/Mentor-students pairs.xlsx');
@@ -21,7 +26,7 @@ module.exports.getFullNames = () => {
     lastRowNumber,
     fieldMap,
   );
-  return fullNamesArray;
+  return fullNamesArray.concat(missingMentors);
 };
 
 module.exports.getRecords = () => {
@@ -67,7 +72,7 @@ module.exports.getTasks = () => {
     lastRowNumber,
     fieldMap,
   );
-  return tasksArray;
+  return tasksArray.concat(missingTasks);
 };
 
 module.exports.joinData = (records, tasks, fullNames) => records
@@ -85,15 +90,19 @@ module.exports.joinData = (records, tasks, fullNames) => records
         mentorNickName = 'Shank111';
         studentNickName = 'nemkev';
         break;
+      case '':
+        // eslint-disable-next-line prefer-destructuring
+        mentorNickName = (records.find(currentrecord => record.student === currentrecord.student && currentrecord.mentor !== 'https://github.com/')).mentor.split('/').slice(-1)[0];
+        break;
       default:
         break;
     }
 
-    let task = tasks.find(currentTask => (_.words(currentTask.name.toUpperCase())).join('')
-      === (_.words(record.taskName.toUpperCase())).join(''));
+    let task = tasks.find(currentTask => (words(currentTask.name.toUpperCase())).join('')
+      === (words(record.taskName.toUpperCase())).join(''));
 
-    let mentor = fullNames.find(currentmentor => _.words(currentmentor.gitHub.toUpperCase())
-      .slice(-1)[0] === _.words(mentorNickName.toUpperCase()).slice(-1)[0]);
+    let mentor = fullNames.find(currentmentor => words(currentmentor.gitHub.toUpperCase())
+      .slice(-1)[0] === words(mentorNickName.toUpperCase()).slice(-1)[0]);
 
     if (!mentor) { mentor = {}; }
     if (!task) {

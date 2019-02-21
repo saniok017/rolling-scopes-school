@@ -34,5 +34,9 @@
  {
   "name": "Course work",
   "taskStatus": "ToDo"
+ },
+ {
+  "name": "Presentation",
+  "taskStatus": "Not Defined"
  }
 ]
