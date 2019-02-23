@@ -73,7 +73,7 @@
   },
   "jest": {
     "transform": {
-      "^.+\\.jsx?$": "babel-jest"
+      "^.+\\.jsx?$": "./babel.wrapper.js"
     },
     "setupFilesAfterEnv": [
       "jest-enzyme"

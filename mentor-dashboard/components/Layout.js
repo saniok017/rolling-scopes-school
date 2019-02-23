@@ -30,16 +30,16 @@ const Layout = (
           </a>
         </Link>
         <Link href="/">
-          <a className="secondary-link">Home</a>
+          <a className="main-link">Home</a>
         </Link>
         <Link href="/about">
-          <a className="secondary-link">About</a>
+          <a className="main-link">About</a>
         </Link>
         {(!user)
-          ? <Link href="/auth/github"><a className="secondary-link">Login</a></Link>
+          ? <Link href="/auth/github"><a className="main-link">Login</a></Link>
           : <Fragment>
               <Link href="/account"><a className="secondary-link">Account</a></Link>
-              <Link href="/logout"><a className="secondary-link">Log Out</a></Link>
+              <Link href="/logout"><a className="main-link">Log Out</a></Link>
             </Fragment>
         }
       </nav>
