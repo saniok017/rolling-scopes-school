@@ -24,9 +24,10 @@ const Layout = (
             &#x2b05;
           </span>
         )}
-        <Link href="/">
-          <a>
-            <span className="main-link">Some Link</span>
+        <Link href="https://rollingscopes.com/">
+          <a className="RSSLink">
+            <img src='/static/icons/icon-192x192.png' alt="RSSchool link" />
+            <span className="main-link">RSSchool</span>
           </a>
         </Link>
         <Link href="/">
@@ -38,8 +39,8 @@ const Layout = (
         {(!user)
           ? <Link href="/auth/github"><a className="main-link">Login</a></Link>
           : <Fragment>
-              <Link href="/account"><a className="secondary-link">Account</a></Link>
               <Link href="/logout"><a className="main-link">Log Out</a></Link>
+              <img className="RSSLink" alt="User Avatar" src={user.photos[0].value} />
             </Fragment>
         }
       </nav>
@@ -55,9 +56,10 @@ const Layout = (
       }
       nav {
         background: #f60;
-        padding: 1em;
+        padding: 0.5em;
         display: flex;
         justify-content: space-between;
+        align-items: center;
       }
       nav > * {
         display: inline-block;
@@ -73,6 +75,17 @@ const Layout = (
         font-size: 0.9rem;
         padding-right: 1em;
         cursor: pointer;
+      }
+      nav .RSSLink {
+        width: 2.7em;
+        height: 2.4em;
+        display: flex;
+      }
+      nav .RSSLink img {
+        width: 2.6em;
+      }
+      nav .RSSLink span {
+        align-self: center;
       }
     `}</style>
     <style global jsx>{`

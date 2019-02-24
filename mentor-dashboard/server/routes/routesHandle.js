@@ -5,35 +5,13 @@ const ensureAuthenticated = require('../lib/ensureAuthenticated');
 const data = require('../../script/data/data.json');
 const tasks = require('../../script/data/tasks.json');
 const makeTableData = require('../lib/makeTableData');
-
+const BD = require('../config/BD');
 
 const routesHandle = (server, handle, app) => {
-  server.get('/account', ensureAuthenticated, (req, res) => {
-    res.render('account', { user: req.user });
+  server.get('/user', ensureAuthenticated, (req, res) => {
+    const ID = req.user.id;
+    res.send({ user: req.user, mentor: BD.get(ID) });
   });
-
-  // server.get('/', ensureAuthenticated, (req, res) => {
-  //   const renderPage = '/';
-  //   let mentor;
-  //   let trainee;
-  //   data.forEach(
-  //     (dataObject) => {
-  //       if (dataObject.mentorGitHub === req.user.profileUrl) {
-  //         mentor = dataObject.mentorFullName;
-  //       }
-  //       if (dataObject.studentGitHub === req.user.profileUrl) {
-  //         trainee = dataObject.studentNickName;
-  //       }
-  //     },
-  //   );
-  //   const queryParams = {
-  //     logineduser: req.user,
-  //     loginedMentor: mentor,
-  //     loginedTrainee: trainee,
-  //   };
-  //   app.render(req, res, renderPage, queryParams);
-  //   res.render('account', { user: req.user });
-  // });
 
   server.get('/service-worker.js', (req, res) => {
     const filePath = path.join(__dirname, '../../.next', '/service-worker.js');
@@ -49,22 +27,19 @@ const routesHandle = (server, handle, app) => {
     passport.authenticate('github', { failureRedirect: '/' }),
     (req, res) => {
       const renderPage = '/';
-      let mentor;
-      let trainee;
+      const ID = req.user.id;
+
       data.forEach(
         (dataObject) => {
-          if (dataObject.mentorGitHub === req.user.profileUrl) {
-            mentor = dataObject.mentorFullName;
-          }
-          if (dataObject.studentGitHub === req.user.profileUrl) {
-            trainee = dataObject.studentNickName;
+          if (dataObject.mentorGitHub === req.user.profileUrl
+            || dataObject.studentGitHub === req.user.profileUrl) {
+            BD.set(ID, dataObject.mentorFullName);
           }
         },
       );
       const queryParams = {
         logineduser: req.user,
-        loginedMentor: mentor,
-        loginedTrainee: trainee,
+        loginedMentor: BD.get(ID),
       };
       app.render(req, res, renderPage, queryParams);
     });

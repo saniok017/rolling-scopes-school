@@ -31,12 +31,18 @@ class Index extends React.Component {
   }
 
   static async getInitialProps(context) {
-    const { logineduser, loginedMentor, loginedTrainee } = context.query;
+    let { logineduser, loginedMentor } = context.query;
     let options;
 
     try {
-      const response = await fetch(`http://localhost:${PORT}/data/options`);
+      let response = await fetch(`http://localhost:${PORT}/data/options`);
       options = await response.json();
+      if (!logineduser) {
+        const responseJson = await fetch(`http://localhost:${PORT}/user`);
+        response = await responseJson.json();
+        if (response.user) logineduser = response.user;
+        if (response.mentor) loginedMentor = response.mentor;
+      }
     } catch (err) {
       console.log(err);
       options = [];
@@ -46,7 +52,6 @@ class Index extends React.Component {
       options,
       loginedMentor,
       logineduser,
-      loginedTrainee,
     };
   }
 
@@ -61,7 +66,8 @@ class Index extends React.Component {
           console.warn('service worker registration failed', err.message);
         });
     }
-    getTableData(this.state.lastSearchedUser)
+
+    getTableData(this.props.loginedMentor || this.state.lastSearchedUser)
       .then(Response => this.setState({ tableData: Response }))
       .catch(error => console.warn(error));
   }
@@ -78,7 +84,6 @@ class Index extends React.Component {
       options,
       loginedMentor,
       logineduser,
-      loginedTrainee,
     } = this.props;
 
     if (options.length === 0) {
