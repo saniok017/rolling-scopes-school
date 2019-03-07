@@ -1,0 +1,28 @@
+{
+  "port": 3000,
+  "corsOptions": {
+      "origin": "http://localhost:3000",
+      "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+      "credentials": true
+  },
+  "localAuth": {
+      "session": false
+  },
+  "githubAuth": {
+      "clientID": "40374ce0244496dfedf9",
+      "clientSecret": "561e1c32dd06736ffd8bc9c0166cd2bd4eda486b",
+      "callbackURL": "http://localhost:3000/auth/github/callback"
+  },
+  "secret": "passport-test",
+  "basePageRedirect": "http://localhost:3000",
+  "successRedirect": "http://localhost:3000/#login-success",
+  "failureRedirect": "http://localhost:3000",
+  "sessionOptions": {
+      "secret": "passport_test",
+      "resave": true,
+      "saveUninitialized": true
+  },
+  "multipartyOptions": {
+      "autoFiles": true
+  }
+}
